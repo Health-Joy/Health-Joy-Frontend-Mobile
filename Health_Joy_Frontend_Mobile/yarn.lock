@@ -6298,10 +6298,20 @@
   "resolved" "https://registry.npmjs.org/react-native-gradle-plugin/-/react-native-gradle-plugin-0.70.3.tgz"
   "version" "0.70.3"
 
+"react-native-image-crop-picker@^0.40.1":
+  "integrity" "sha512-rs7W4jrisOiQtRip5WG0N4bxhT1hr5TWSA8Mo2OrlZgIhvTU9gdIw63hKw35rbwzVAzDkPXOBsR3ZolsTBxqww=="
+  "resolved" "https://registry.npmjs.org/react-native-image-crop-picker/-/react-native-image-crop-picker-0.40.1.tgz"
+  "version" "0.40.1"
+
 "react-native-image-picker@^7.0.2":
   "integrity" "sha512-2Y+TMzv2l32IikqYpj4WOqkYvv42SXkSvL9zAo0XdhA3Rbe3lc0Oz12KlR6M2bGh8RxXz5lUrs+9mxy/GpcLIg=="
   "resolved" "https://registry.npmjs.org/react-native-image-picker/-/react-native-image-picker-7.0.2.tgz"
   "version" "7.0.2"
+
+"react-native-popup-menu@^0.16.1":
+  "integrity" "sha512-xRS7mRh0exwu7Iw8PPVHdM11d13A/KzYjy0/fZx3zVtxISxPkNaDGayau6oa7HqO3Nj0oS9ulFCYjcQfG6vahA=="
+  "resolved" "https://registry.npmjs.org/react-native-popup-menu/-/react-native-popup-menu-0.16.1.tgz"
+  "version" "0.16.1"
 
 "react-native-reanimated@^3.5.4":
   "integrity" "sha512-8we9LLDO1o4Oj9/DICeEJ2K1tjfqkJagqQUglxeUAkol/HcEJ6PGxIrpBcNryLqCDYEcu6FZWld/FzizBIw6bg=="
@@ -6331,7 +6341,7 @@
   "resolved" "https://registry.npmjs.org/react-native-text-recognition/-/react-native-text-recognition-1.0.0.tgz"
   "version" "1.0.0"
 
-"react-native@*", "react-native@>=0.57", "react-native@0.70.0":
+"react-native@*", "react-native@>=0.40.0", "react-native@>=0.57", "react-native@0.70.0":
   "integrity" "sha512-QjXLbrK9f+/B2eCzn6kAvglLV/8nwPuFGaFv7ggPpAzFRyx5bVN1dwQLHL3MrP7iXR/M7Jc6Nnid7tmRSic6vA=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.70.0.tgz"
   "version" "0.70.0"
