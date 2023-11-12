@@ -10,6 +10,7 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import ImagePicker from 'react-native-image-crop-picker';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -19,10 +20,26 @@ const Navbar = () => {
 
   const navigateToScreen = screenName => {
     navigation.navigate(screenName);
-    setMenuVisible(false); // Close the menu after navigating
+    setMenuVisible(false);
   };
-  const handleCamera = () => {};
-  const handleLibrary = () => {};
+  const handleCamera = () => {
+    ImagePicker.openCamera({
+      width: 300,
+      height: 400,
+      cropping: true,
+    }).then(image => {
+      console.log(image);
+    });
+  };
+  const handleLibrary = () => {
+    ImagePicker.openPicker({
+      width: 300,
+      height: 400,
+      cropping: true,
+    }).then(image => {
+      console.log(image);
+    });
+  };
 
   return (
     <View style={styles.navbar}>
@@ -70,10 +87,10 @@ const Navbar = () => {
         <TouchableWithoutFeedback onPress={() => setMenuVisible(false)}>
           <View style={styles.menuOverlay}>
             <View style={styles.menu}>
-              <TouchableOpacity onPress={() => handleLibrary}>
+              <TouchableOpacity onPress={handleLibrary}>
                 <Text style={styles.menuItem}>Choose From Library </Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => handleCamera}>
+              <TouchableOpacity onPress={handleCamera}>
                 <Text style={styles.menuItem}>Take Photo</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => setMenuVisible(false)}>
