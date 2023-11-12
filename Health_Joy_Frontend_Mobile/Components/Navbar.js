@@ -24,8 +24,8 @@ const Navbar = () => {
   };
   const handleCamera = () => {
     ImagePicker.openCamera({
-      width: 300,
-      height: 400,
+      width: 400,
+      height: 200,
       cropping: true,
     }).then(image => {
       console.log(image);
@@ -33,8 +33,8 @@ const Navbar = () => {
   };
   const handleLibrary = () => {
     ImagePicker.openPicker({
-      width: 300,
-      height: 400,
+      width: 400,
+      height: 200,
       cropping: true,
     }).then(image => {
       console.log(image);
@@ -142,13 +142,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'green',
     padding: 10,
     marginVertical: 5,
-    borderRadius: 5,
+    borderRadius: 20,
   },
   cancelButton: {
     backgroundColor: 'red', // You can change this color as needed
     padding: 10,
     marginVertical: 5,
-    borderRadius: 5,
+    borderRadius: 20,
   },
   menuItemText: {
     color: 'white',
