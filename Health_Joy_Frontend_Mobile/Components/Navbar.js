@@ -87,16 +87,21 @@ const Navbar = () => {
         <TouchableWithoutFeedback onPress={() => setMenuVisible(false)}>
           <View style={styles.menuOverlay}>
             <View style={styles.menu}>
-              <TouchableOpacity onPress={handleLibrary}>
-                <Text style={styles.menuItem}>Choose From Library </Text>
+              <TouchableOpacity
+                onPress={handleLibrary}
+                style={styles.menuItemButton}>
+                <Text style={styles.menuItemText}>Choose From Library</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={handleCamera}>
-                <Text style={styles.menuItem}>Take Photo</Text>
+              <TouchableOpacity
+                onPress={handleCamera}
+                style={styles.menuItemButton}>
+                <Text style={styles.menuItemText}>Take Photo</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => setMenuVisible(false)}>
-                <Text style={styles.menuItem}>Cancel</Text>
+              <TouchableOpacity
+                onPress={() => setMenuVisible(false)}
+                style={styles.cancelButton}>
+                <Text style={styles.menuItemText}>Cancel</Text>
               </TouchableOpacity>
-              {/* Add more menu options as needed */}
             </View>
           </View>
         </TouchableWithoutFeedback>
@@ -129,13 +134,26 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   menu: {
-    backgroundColor: '#fff',
-    borderRadius: 10,
+    backgroundColor: 'white',
     padding: 10,
+    borderRadius: 8,
   },
-  menuItem: {
-    fontSize: 18,
-    paddingVertical: 10,
+  menuItemButton: {
+    backgroundColor: 'green',
+    padding: 10,
+    marginVertical: 5,
+    borderRadius: 5,
+  },
+  cancelButton: {
+    backgroundColor: 'red', // You can change this color as needed
+    padding: 10,
+    marginVertical: 5,
+    borderRadius: 5,
+  },
+  menuItemText: {
+    color: 'white',
+    textAlign: 'center',
+    fontWeight: 'bold',
   },
 });
 
