@@ -22,6 +22,7 @@ const Navbar = () => {
     navigation.navigate(screenName);
     setMenuVisible(false);
   };
+
   const handleCamera = async () => {
     try {
       const image = await ImagePicker.openCamera({
@@ -31,13 +32,13 @@ const Navbar = () => {
         freeStyleCropEnabled: true,
       });
 
-      console.log(image);
-
-      console.log(result);
+      navigation.navigate('IngredientsCheck', {image: image});
+      setMenuVisible(false);
     } catch (error) {
       console.error(error);
     }
   };
+
   const handleLibrary = async () => {
     try {
       const image = await ImagePicker.openPicker({
@@ -69,16 +70,13 @@ const Navbar = () => {
             style={styles.image}
           />
         </TouchableOpacity>
-
-        {/* Barcode Icon with Modal */}
         <TouchableOpacity onPress={() => setMenuVisible(true)}>
           <Image
             source={require('../assets/navbar-icons/barcode-icon.png')}
             style={styles.image}
           />
         </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => navigateToScreen('IngredientsCheck')}>
+        <TouchableOpacity onPress={() => navigateToScreen('Favourite')}>
           <Image
             source={require('../assets/navbar-icons/favorite-icon.png')}
             style={styles.image}
@@ -95,7 +93,7 @@ const Navbar = () => {
       <Modal
         visible={isMenuVisible}
         transparent={true}
-        animationType="fade"
+        animationType="slide"
         onRequestClose={() => setMenuVisible(false)}>
         <TouchableWithoutFeedback onPress={() => setMenuVisible(false)}>
           <View style={styles.menuOverlay}>
