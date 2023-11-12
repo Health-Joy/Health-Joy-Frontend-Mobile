@@ -11,6 +11,7 @@ import CircleShape from './Components/CircleShape';
 import WelcomePage from './Screens/WelcomePage';
 import Search from './Screens/Search';
 import TextRecognitionn from './Screens/TextRecognitionn';
+import IngredientsCheckScreen from './Screens/IngredientsCheckScreen';
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -46,6 +47,11 @@ export default function App() {
           <Stack.Screen
             name="TextRecognitionn"
             component={TextRecognitionn}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="IngredientsCheck"
+            component={IngredientsCheckScreen}
             options={{headerShown: false}}
           />
         </Stack.Navigator>

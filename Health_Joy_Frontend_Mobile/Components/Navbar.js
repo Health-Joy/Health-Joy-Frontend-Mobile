@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import ImagePicker from 'react-native-image-crop-picker';
+import TextRecognition from 'react-native-text-recognition';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -22,23 +23,37 @@ const Navbar = () => {
     navigation.navigate(screenName);
     setMenuVisible(false);
   };
-  const handleCamera = () => {
-    ImagePicker.openCamera({
-      width: 400,
-      height: 200,
-      cropping: true,
-    }).then(image => {
+  const handleCamera = async () => {
+    try {
+      const image = await ImagePicker.openCamera({
+        width: 300,
+        height: 300,
+        cropping: true,
+        freeStyleCropEnabled: true,
+      });
+
       console.log(image);
-    });
+
+      console.log(result);
+    } catch (error) {
+      console.error(error);
+    }
   };
-  const handleLibrary = () => {
-    ImagePicker.openPicker({
-      width: 400,
-      height: 200,
-      cropping: true,
-    }).then(image => {
-      console.log(image);
-    });
+  const handleLibrary = async () => {
+    try {
+      const image = await ImagePicker.openPicker({
+        width: 300,
+        height: 300,
+        cropping: true,
+        freeStyleCropEnabled: true,
+      });
+
+      //  const result = await TextRecognition.recognize(image.path);
+      navigation.navigate('IngredientsCheck', {image: image});
+      setMenuVisible(false);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -65,7 +80,7 @@ const Navbar = () => {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigateToScreen('Favorite')}>
+        <TouchableOpacity onPress={() => navigateToScreen('IngredientsCheck')}>
           <Image
             source={require('../assets/navbar-icons/favorite-icon.png')}
             style={styles.image}
