@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
-const Registration = () => {
+const RegistrationScreen = () => {
   const navigation = useNavigation();
   return (
     <View>
@@ -113,4 +113,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Registration;
+export default RegistrationScreen;

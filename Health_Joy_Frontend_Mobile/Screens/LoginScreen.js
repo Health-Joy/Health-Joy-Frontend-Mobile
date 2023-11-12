@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
-const Login = () => {
+const LoginScreen = () => {
   const navigation = useNavigation();
   const handlePress = () => {
     navigation.navigate('Home');
@@ -131,4 +131,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;
+export default LoginScreen;

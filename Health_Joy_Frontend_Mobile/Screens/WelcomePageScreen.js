@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Image, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
-const WelcomePage = () => {
+const WelcomePageScreen = () => {
   const navigation = useNavigation();
 
   const handlePress = () => {
@@ -61,4 +61,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default WelcomePage;
+export default WelcomePageScreen;

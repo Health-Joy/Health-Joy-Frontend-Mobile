@@ -55,8 +55,8 @@ const IngredientsCheckScreen = ({route}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-end', // Dikeyde ortalama
-    alignItems: 'center', // Yatayda ortalama
+    justifyContent: 'flex-end',
+    alignItems: 'center',
     marginBottom: 100,
   },
   textTitle: {fontSize: 18, fontWeight: 'bold'},
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 60,
     borderRadius: 20,
-    marginRight: 40, // Butonlar arasındaki boşluğu kontrol etmek için ayarlayabilirsiniz
+    marginRight: 40,
   },
   confirmButton: {
     width: 110,

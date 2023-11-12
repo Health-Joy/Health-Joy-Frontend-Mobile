@@ -1,17 +1,15 @@
-/* eslint-disable react-native/no-inline-styles */
 import * as React from 'react';
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {View} from 'react-native';
-import HomePage from './Screens/HomePage';
-import Login from './Screens/Login';
-import Registration from './Screens/Registration';
 import CircleShape from './Components/CircleShape';
-import WelcomePage from './Screens/WelcomePage';
-import Search from './Screens/Search';
-import TextRecognitionn from './Screens/TextRecognitionn';
 import IngredientsCheckScreen from './Screens/IngredientsCheckScreen';
+import LoginScreen from './Screens/LoginScreen';
+import SearchScreen from './Screens/SearchScreen';
+import HomePageScreen from './Screens/HomePageScreen';
+import RegistrationScreen from './Screens/RegistrationScreen';
+import WelcomePageScreen from './Screens/WelcomePageScreen';
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -21,32 +19,27 @@ export default function App() {
         <Stack.Navigator>
           <Stack.Screen
             name="Get Started"
-            component={WelcomePage}
+            component={WelcomePageScreen}
             options={{headerShown: false}}
           />
           <Stack.Screen
             name="Registration"
-            component={Registration}
+            component={RegistrationScreen}
             options={{headerShown: false}}
           />
           <Stack.Screen
             name="Home"
-            component={HomePage}
+            component={HomePageScreen}
             options={{headerShown: false}}
           />
           <Stack.Screen
             name="Search"
-            component={Search}
+            component={SearchScreen}
             options={{headerShown: false}}
           />
           <Stack.Screen
             name="Login"
-            component={Login}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name="TextRecognitionn"
-            component={TextRecognitionn}
+            component={LoginScreen}
             options={{headerShown: false}}
           />
           <Stack.Screen

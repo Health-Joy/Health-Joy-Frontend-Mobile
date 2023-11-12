@@ -8,7 +8,7 @@ import {
   TextInput,
 } from 'react-native';
 
-const Search = () => {
+const SearchScreen = () => {
   return (
     <View style={styles.container}>
       <Navbar />
@@ -21,7 +21,7 @@ const Search = () => {
           />
           <Image
             style={styles.cosmeticIcon}
-            source={require('../assets/search.png')}
+            source={require('../assets/search-page-icons/search-icon.png')}
           />
         </View>
       </TouchableOpacity>
@@ -62,4 +62,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Search;
+export default SearchScreen;

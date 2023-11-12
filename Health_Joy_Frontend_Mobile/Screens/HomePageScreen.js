@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import Navbar from '../Components/Navbar';
-const HomePage = () => {
+const HomePageScreen = () => {
   return (
     <View style={styles.container}>
       <Navbar />
@@ -101,4 +101,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomePage;
+export default HomePageScreen;

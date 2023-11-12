@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import ImagePicker from 'react-native-image-crop-picker';
-import TextRecognition from 'react-native-text-recognition';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -48,7 +47,6 @@ const Navbar = () => {
         freeStyleCropEnabled: true,
       });
 
-      //  const result = await TextRecognition.recognize(image.path);
       navigation.navigate('IngredientsCheck', {image: image});
       setMenuVisible(false);
     } catch (error) {
@@ -160,7 +158,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   cancelButton: {
-    backgroundColor: 'red', // You can change this color as needed
+    backgroundColor: 'red',
     padding: 10,
     marginVertical: 5,
     borderRadius: 20,
