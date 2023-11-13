@@ -10,6 +10,8 @@ import SearchScreen from './Screens/SearchScreen';
 import HomePageScreen from './Screens/HomePageScreen';
 import RegistrationScreen from './Screens/RegistrationScreen';
 import WelcomePageScreen from './Screens/WelcomePageScreen';
+import UserProfileScreen from './Screens/UserProfileScreen';
+import ChangePasswordScreen from './Screens/ChangePasswordScreen';
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -47,6 +49,17 @@ export default function App() {
             component={IngredientsCheckScreen}
             options={{headerShown: false}}
           />
+          <Stack.Screen
+            name="Profile"
+            component={UserProfileScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="ChangePassword"
+            component={ChangePasswordScreen}
+            options={{headerShown: false}}
+          />
+
         </Stack.Navigator>
       </NavigationContainer>
       <CircleShape />
