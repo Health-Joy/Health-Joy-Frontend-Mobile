@@ -12,6 +12,9 @@ import RegistrationScreen from './Screens/RegistrationScreen';
 import WelcomePageScreen from './Screens/WelcomePageScreen';
 import UserProfileScreen from './Screens/UserProfileScreen';
 import ChangePasswordScreen from './Screens/ChangePasswordScreen';
+import ChangeUsernameScreen from './Screens/ChangeUsernameScreen';
+import ProductNotFoundScreen from './Screens/ProductNotFoundScreen';
+
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -59,7 +62,16 @@ export default function App() {
             component={ChangePasswordScreen}
             options={{headerShown: false}}
           />
-
+          <Stack.Screen
+            name="ChangeUsername"
+            component={ChangeUsernameScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="ProductNotFound"
+            component={ProductNotFoundScreen}
+            options={{headerShown: false}}
+          />
         </Stack.Navigator>
       </NavigationContainer>
       <CircleShape />

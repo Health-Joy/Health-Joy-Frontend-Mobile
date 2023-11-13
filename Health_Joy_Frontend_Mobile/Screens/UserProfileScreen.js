@@ -16,6 +16,11 @@ const UserProfileScreen = () => {
     navigation.navigate('ChangePassword');
   };
 
+  const navigateToChangeUsername = () => {
+    navigation.navigate('ChangeUsername');
+  };
+
+
   return (
     <View style={styles.container}>
       <Navbar />
@@ -25,7 +30,9 @@ const UserProfileScreen = () => {
         source={require('../assets/user-page-icons/user-icon.png')}
       />
       <View style={styles.viewStyle}>
-        <TouchableOpacity style={styles.touchableOpacity}>
+        <TouchableOpacity 
+        style={styles.touchableOpacity}
+        onPress={navigateToChangeUsername}>
           <View style={styles.buttonContent}>
             <Image
               style={styles.userIcon}
