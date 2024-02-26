@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -11,6 +11,44 @@ import {useNavigation} from '@react-navigation/native';
 
 const RegistrationScreen = () => {
   const navigation = useNavigation();
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const handleRegister = () => {
+    // Bu kısımda kayıt işlemi için API'ye istek yapılacak
+    // Bu örnekte fetch kullanılarak POST isteği yapılabilir
+    fetch('http://10.0.2.2:5090/api/User', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        fullName: fullName,
+        email: email,
+        password: password,
+        confirmPassword: confirmPassword,
+      }),
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        // Kayıt başarılı ise burada istenen işlemler yapılabilir
+        console.log('Registration successful');
+        // Örneğin kayıt başarılı mesajı gösterilebilir
+      })
+      .catch(error => {
+        console.error('There was a problem with the registration:', error);
+        // Hata durumunda kullanıcıya uygun bir geri bildirim gösterilebilir
+      });
+  };
+
   return (
     <View>
       <ScrollView>
@@ -24,6 +62,8 @@ const RegistrationScreen = () => {
               style={styles.input}
               placeholder="Enter your fullname"
               textAlign="center"
+              value={fullName}
+              onChangeText={text => setFullName(text)}
             />
           </View>
           <View style={styles.inputContainer}>
@@ -31,6 +71,8 @@ const RegistrationScreen = () => {
               style={styles.input}
               placeholder="Enter your email"
               textAlign="center"
+              value={email}
+              onChangeText={text => setEmail(text)}
             />
           </View>
           <View style={styles.inputContainer}>
@@ -38,6 +80,9 @@ const RegistrationScreen = () => {
               style={styles.input}
               placeholder="Enter your password"
               textAlign="center"
+              secureTextEntry={true}
+              value={password}
+              onChangeText={text => setPassword(text)}
             />
           </View>
           <View style={styles.inputContainer}>
@@ -45,9 +90,15 @@ const RegistrationScreen = () => {
               style={styles.input}
               placeholder="Confirm your password"
               textAlign="center"
+              secureTextEntry={true}
+              value={confirmPassword}
+              onChangeText={text => setConfirmPassword(text)}
             />
           </View>
-          <TouchableOpacity style={styles.button} activeOpacity={0.8}>
+          <TouchableOpacity
+            style={styles.button}
+            activeOpacity={0.8}
+            onPress={handleRegister}>
             <Text style={styles.text}>Register</Text>
           </TouchableOpacity>
           <Text style={styles.text2}>
