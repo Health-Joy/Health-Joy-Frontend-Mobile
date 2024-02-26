@@ -34,18 +34,23 @@ const RegistrationScreen = () => {
     })
       .then(response => {
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          return response.json().then(data => {
+            throw new Error(data.Message[0]); // API'den dönen hata mesajını al ve hata olarak fırlat
+          });
         }
-        return response.json();
+        // return response.json();
       })
       .then(data => {
         // Kayıt başarılı ise burada istenen işlemler yapılabilir
         console.log('Registration successful');
-        // Örneğin kayıt başarılı mesajı gösterilebilir
+        // Kullanıcıya başarılı kayıt mesajını göstermek için bir alert veya Toast mesajı kullanabilirsiniz
+        alert('Registration successful'); // veya ToastAndroid.show('Registration successful', ToastAndroid.SHORT);
+        navigation.navigate('Login');
       })
       .catch(error => {
         console.error('There was a problem with the registration:', error);
-        // Hata durumunda kullanıcıya uygun bir geri bildirim gösterilebilir
+        // Kullanıcıya kayıt hatası mesajını göstermek için bir alert veya Toast mesajı kullanabilirsiniz
+        alert(error); // veya ToastAndroid.show('Registration failed. Please try again.', ToastAndroid.SHORT);
       });
   };
 

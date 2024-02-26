@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -11,9 +11,38 @@ import {useNavigation} from '@react-navigation/native';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
-  const handlePress = () => {
-    navigation.navigate('Home');
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = () => {
+    // Bu kısımda kayıt işlemi için API'ye istek yapılacak
+    // Bu örnekte fetch kullanılarak POST isteği yapılabilir
+    fetch(
+      `http://10.0.2.2:5090/api/User/Login?email=${email}&password=${password}`,
+      {
+        // login endpointi
+        method: 'POST', // POST isteği
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      },
+    ).then(response => {
+      if (!response.ok) {
+        return response.json().then(data => {
+          alert('Username or Password Incorrect'); // API'den dönen hata mesajını al ve hata olarak fırlat
+        });
+      } else {
+        navigation.navigate('Home');
+      }
+    });
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.container}>
@@ -30,6 +59,8 @@ const LoginScreen = () => {
             style={styles.input}
             placeholder="Enter your email"
             textAlign="center"
+            value={email}
+            onChangeText={text => setEmail(text)}
           />
         </View>
         <View style={styles.inputContainer}>
@@ -37,6 +68,9 @@ const LoginScreen = () => {
             style={styles.input}
             placeholder="Enter your password"
             textAlign="center"
+            secureTextEntry={true}
+            value={password}
+            onChangeText={text => setPassword(text)}
           />
         </View>
         <Text style={styles.text4}>
@@ -46,7 +80,7 @@ const LoginScreen = () => {
         <TouchableOpacity
           style={styles.button}
           activeOpacity={0.8}
-          onPress={handlePress}>
+          onPress={handleLogin}>
           <Text style={styles.text}>Login</Text>
         </TouchableOpacity>
         <Text style={styles.text2}>
