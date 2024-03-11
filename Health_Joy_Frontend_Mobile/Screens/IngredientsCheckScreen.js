@@ -1,21 +1,56 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Image, StyleSheet, Button, Text} from 'react-native';
 import Navbar from '../Components/Navbar';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 import TextRecognition from 'react-native-text-recognition';
+import axios from 'axios';
 
 const IngredientsCheckScreen = ({route}) => {
   const navigation = useNavigation();
+  const [uniqueWords, setUniqueWords] = useState([]);
 
   const {image} = route.params;
+
+  useEffect(() => {
+    const handleSubmit = async () => {
+      const result = await TextRecognition.recognize(image.path);
+
+      const linesArray = Array.isArray(result) ? result : [result];
+
+      const wordsArray = [];
+      linesArray.forEach(item => {
+        const lines = item.split('\n');
+        lines.forEach(line => {
+          const words = line.split(/\s+/).filter(word => word !== '');
+          wordsArray.push(...words);
+        });
+      });
+
+      const cleanedWordsArray = wordsArray.map(word =>
+        word.replace(/[.,!?]/g, ''),
+      );
+
+      const uniqueWordsSet = new Set(cleanedWordsArray);
+      setUniqueWords(Array.from(uniqueWordsSet));
+    };
+
+    handleSubmit();
+  }, []);
+
+  const sendUniqueWordsToEndpoint = async () => {
+    try {
+      const response = await axios.post('your-endpoint-url', {uniqueWords});
+      console.log(response.data);
+    } catch (error) {
+      console.error('Error sending data:', error);
+    }
+  };
+
   const handleDecline = () => {
     navigation.navigate('Home');
   };
-  const handleSubmit = async () => {
-    const result = await TextRecognition.recognize(image.path);
-    console.log(result);
-  };
+
   return (
     <View style={{flex: 1}}>
       <Navbar />
@@ -34,16 +69,12 @@ const IngredientsCheckScreen = ({route}) => {
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.declineButton}
-            onPress={() => {
-              handleDecline();
-            }}>
+            onPress={handleDecline}>
             <Text style={styles.text}>Decline</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.confirmButton}
-            onPress={() => {
-              handleSubmit();
-            }}>
+            onPress={sendUniqueWordsToEndpoint}>
             <Text style={styles.text}>Submit</Text>
           </TouchableOpacity>
         </View>

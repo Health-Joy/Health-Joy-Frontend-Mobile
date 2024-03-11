@@ -2223,6 +2223,15 @@
   "resolved" "https://registry.npmjs.org/available-typed-arrays/-/available-typed-arrays-1.0.5.tgz"
   "version" "1.0.5"
 
+"axios@^1.6.7":
+  "integrity" "sha512-/hDJGff6/c7u0hDkvkGxR/oy6CbCs8ziCsC7SqmhjfozqiJGc8Z11wrv9z9lYfY4K8l+H9TpjcMDX0xOZmx+RA=="
+  "resolved" "https://registry.npmjs.org/axios/-/axios-1.6.7.tgz"
+  "version" "1.6.7"
+  dependencies:
+    "follow-redirects" "^1.15.4"
+    "form-data" "^4.0.0"
+    "proxy-from-env" "^1.1.0"
+
 "babel-core@^7.0.0-bridge.0":
   "integrity" "sha512-poPX9mZH/5CSanm50Q+1toVci6pv5KSRv/5TWCwtzQS5XEwn40BcCrgIeMFWP9CKKIniKXNxoIOnOq4VVlGXhg=="
   "resolved" "https://registry.npmjs.org/babel-core/-/babel-core-7.0.0-bridge.0.tgz"
@@ -3608,6 +3617,11 @@
   "resolved" "https://registry.npmjs.org/flow-parser/-/flow-parser-0.221.0.tgz"
   "version" "0.221.0"
 
+"follow-redirects@^1.15.4":
+  "integrity" "sha512-vSFWUON1B+yAw1VN4xMfxgn5fTUiaOzAJCKBwIIgT/+7CuGy9+r+5gITvP62j3RmaD5Ph65UaERdOSRGUzZtgw=="
+  "resolved" "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.5.tgz"
+  "version" "1.15.5"
+
 "for-each@^0.3.3":
   "integrity" "sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw=="
   "resolved" "https://registry.npmjs.org/for-each/-/for-each-0.3.3.tgz"
@@ -3624,6 +3638,15 @@
   "integrity" "sha512-RHkBKtLWUVwd7SqRIvCZMEvAMoGUp0XU+seQiZejj0COz3RI3hWP4sCv3gZWWLjJTd7rGwcsF5eKZGii0r/hbg=="
   "resolved" "https://registry.npmjs.org/form-data/-/form-data-3.0.1.tgz"
   "version" "3.0.1"
+  dependencies:
+    "asynckit" "^0.4.0"
+    "combined-stream" "^1.0.8"
+    "mime-types" "^2.1.12"
+
+"form-data@^4.0.0":
+  "integrity" "sha512-ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww=="
+  "resolved" "https://registry.npmjs.org/form-data/-/form-data-4.0.0.tgz"
+  "version" "4.0.0"
   dependencies:
     "asynckit" "^0.4.0"
     "combined-stream" "^1.0.8"
@@ -6195,6 +6218,11 @@
     "loose-envify" "^1.4.0"
     "object-assign" "^4.1.1"
     "react-is" "^16.13.1"
+
+"proxy-from-env@^1.1.0":
+  "integrity" "sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg=="
+  "resolved" "https://registry.npmjs.org/proxy-from-env/-/proxy-from-env-1.1.0.tgz"
+  "version" "1.1.0"
 
 "psl@^1.1.33":
   "integrity" "sha512-E/ZsdU4HLs/68gYzgGTkMicWTLPdAftJLfJFlLUAAKZGkStNU72sZjT66SnMDVOfOWY/YAoiD7Jxa9iHvngcag=="
