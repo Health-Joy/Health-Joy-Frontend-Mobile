@@ -4,12 +4,10 @@ import Navbar from '../Components/Navbar';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 import TextRecognition from 'react-native-text-recognition';
-import axios from 'axios';
 
 const IngredientsCheckScreen = ({route}) => {
   const navigation = useNavigation();
   const [uniqueWords, setUniqueWords] = useState([]);
-
   const {image} = route.params;
 
   useEffect(() => {
@@ -40,10 +38,27 @@ const IngredientsCheckScreen = ({route}) => {
 
   const sendUniqueWordsToEndpoint = async () => {
     try {
-      const response = await axios.post('your-endpoint-url', {uniqueWords});
-      console.log(response.data);
+      const response = await fetch(
+        'https://healthjoybackendmobile20240311152807.azurewebsites.net/api/Ingredient/CalculateAverageRiskLevel',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+          body: JSON.stringify(uniqueWords),
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error('Request failed');
+      }
+
+      const responseData = await response.json();
+      console.log(responseData);
     } catch (error) {
-      console.error('Error sending data:', error);
+      console.error('There was a problem with the ingredients:', error);
+      alert(error);
     }
   };
 

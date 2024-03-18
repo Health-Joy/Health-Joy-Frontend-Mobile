@@ -17,40 +17,37 @@ const RegistrationScreen = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleRegister = () => {
-    // Bu kısımda kayıt işlemi için API'ye istek yapılacak
-    // Bu örnekte fetch kullanılarak POST isteği yapılabilir
-    fetch('http://10.0.2.2:5090/api/User', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
+    fetch(
+      'https://healthjoybackendmobile20240311152807.azurewebsites.net/api/User',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          fullName: fullName,
+          email: email,
+          password: password,
+          confirmPassword: confirmPassword,
+        }),
       },
-      body: JSON.stringify({
-        fullName: fullName,
-        email: email,
-        password: password,
-        confirmPassword: confirmPassword,
-      }),
-    })
+    )
       .then(response => {
         if (!response.ok) {
           return response.json().then(data => {
-            throw new Error(data.Message[0]); // API'den dönen hata mesajını al ve hata olarak fırlat
+            throw new Error(data.Message[0]);
           });
         }
-        // return response.json();
       })
       .then(data => {
-        // Kayıt başarılı ise burada istenen işlemler yapılabilir
         console.log('Registration successful');
-        // Kullanıcıya başarılı kayıt mesajını göstermek için bir alert veya Toast mesajı kullanabilirsiniz
-        alert('Registration successful'); // veya ToastAndroid.show('Registration successful', ToastAndroid.SHORT);
+        alert('Registration successful');
         navigation.navigate('Login');
       })
       .catch(error => {
         console.error('There was a problem with the registration:', error);
-        // Kullanıcıya kayıt hatası mesajını göstermek için bir alert veya Toast mesajı kullanabilirsiniz
-        alert(error); // veya ToastAndroid.show('Registration failed. Please try again.', ToastAndroid.SHORT);
+        alert(error);
       });
   };
 

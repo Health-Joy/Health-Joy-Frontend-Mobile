@@ -16,13 +16,10 @@ const LoginScreen = () => {
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    // Bu kısımda kayıt işlemi için API'ye istek yapılacak
-    // Bu örnekte fetch kullanılarak POST isteği yapılabilir
     fetch(
-      `http://10.0.2.2:5090/api/User/Login?email=${email}&password=${password}`,
+      `https://healthjoybackendmobile20240311152807.azurewebsites.net/api/User/Login?email=${email}&password=${password}`,
       {
-        // login endpointi
-        method: 'POST', // POST isteği
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
@@ -35,7 +32,7 @@ const LoginScreen = () => {
     ).then(response => {
       if (!response.ok) {
         return response.json().then(data => {
-          alert('Username or Password Incorrect'); // API'den dönen hata mesajını al ve hata olarak fırlat
+          alert('Username or Password Incorrect');
         });
       } else {
         navigation.navigate('Home');
