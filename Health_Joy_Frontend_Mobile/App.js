@@ -14,7 +14,7 @@ import UserProfileScreen from './Screens/UserProfileScreen';
 import ChangePasswordScreen from './Screens/ChangePasswordScreen';
 import ChangeUsernameScreen from './Screens/ChangeUsernameScreen';
 import ProductNotFoundScreen from './Screens/ProductNotFoundScreen';
-
+import IngredientsScreen from './Screens/IngredientsScreen';
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -70,6 +70,11 @@ export default function App() {
           <Stack.Screen
             name="ProductNotFound"
             component={ProductNotFoundScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="IngredientsDetails"
+            component={IngredientsScreen}
             options={{headerShown: false}}
           />
         </Stack.Navigator>

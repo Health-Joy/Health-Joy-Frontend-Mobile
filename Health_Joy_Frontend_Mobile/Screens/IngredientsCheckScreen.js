@@ -12,25 +12,29 @@ const IngredientsCheckScreen = ({route}) => {
 
   useEffect(() => {
     const handleSubmit = async () => {
-      const result = await TextRecognition.recognize(image.path);
+      try {
+        const result = await TextRecognition.recognize(image.path);
 
-      const linesArray = Array.isArray(result) ? result : [result];
+        const linesArray = Array.isArray(result) ? result : [result];
 
-      const wordsArray = [];
-      linesArray.forEach(item => {
-        const lines = item.split('\n');
-        lines.forEach(line => {
-          const words = line.split(/\s+/).filter(word => word !== '');
-          wordsArray.push(...words);
+        const wordsArray = [];
+        linesArray.forEach(item => {
+          const lines = item.split('\n');
+          lines.forEach(line => {
+            const words = line.split(/\s+/).filter(word => word !== '');
+            wordsArray.push(...words);
+          });
         });
-      });
 
-      const cleanedWordsArray = wordsArray.map(word =>
-        word.replace(/[.,!?]/g, ''),
-      );
+        const cleanedWordsArray = wordsArray.map(word =>
+          word.replace(/[.,!?]/g, ''),
+        );
 
-      const uniqueWordsSet = new Set(cleanedWordsArray);
-      setUniqueWords(Array.from(uniqueWordsSet));
+        const uniqueWordsSet = new Set(cleanedWordsArray);
+        setUniqueWords(Array.from(uniqueWordsSet));
+      } catch (error) {
+        console.error('Text recognition error:', error);
+      }
     };
 
     handleSubmit();
@@ -51,14 +55,22 @@ const IngredientsCheckScreen = ({route}) => {
       );
 
       if (!response.ok) {
-        throw new Error('Request failed');
+        throw new Error('Unable to fetch data');
       }
 
       const responseData = await response.json();
+      console.log(uniqueWords);
       console.log(responseData);
+      if (responseData) {
+        navigation.navigate('IngredientsDetails', {
+          responseData: responseData,
+        });
+      } else {
+        throw new Error('Invalid response data');
+      }
     } catch (error) {
-      console.error('There was a problem with the ingredients:', error);
-      alert(error);
+      console.error('Error sending unique words to endpoint:', error);
+      alert('Error: Unable to fetch data');
     }
   };
 
