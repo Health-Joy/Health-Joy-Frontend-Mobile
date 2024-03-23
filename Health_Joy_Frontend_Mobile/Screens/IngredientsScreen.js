@@ -20,19 +20,20 @@ const IngredientsScreen = ({route}) => {
 
   const getRiskColor = riskLevel => {
     if (riskLevel <= 4) {
-      return 'green';
+        return 'rgba(0, 132, 80, 1)'; // Yeşil, tam opak
     } else if (riskLevel <= 7) {
-      return 'yellow';
+        return 'rgba(255, 200, 58, 0.85)'; // Sarı, 0.85 opaklık
     } else {
-      return 'red';
+        return 'rgba(184, 29, 19, 1)'; // Kırmızı, tam opak
     }
-  };
+};
+
 
   const getRiskLabel = riskLevel => {
     if (riskLevel <= 4) {
       return 'Safe';
     } else if (riskLevel <= 7) {
-      return 'Moderate';
+      return 'Fair';//makul, uygun(medium yazılır belki)
     } else {
       return 'Poor';
     }
@@ -44,9 +45,6 @@ const IngredientsScreen = ({route}) => {
 
   return (
     <View style={styles.container}>
-      <Text style={[styles.averageRisk, styles.averageRiskText]}>
-        Average Risk Level:
-      </Text>
       <View style={styles.averageRiskContainer}>
         <View style={[styles.riskBox, {backgroundColor: averageRiskColor}]}>
           <Text style={[styles.riskText, styles.averageRiskText]}>
@@ -57,18 +55,26 @@ const IngredientsScreen = ({route}) => {
           </Text>
         </View>
       </View>
+      <View style={styles.IngredientsText}>
+        <Text style={styles.Ingredients}>Ingredients</Text>
+      </View>
       {responseData.ing.map((ingredient, index) => (
-        <TouchableOpacity key={index} onPress={() => toggleModal(ingredient)}>
-          <View style={styles.ingredientContainer}>
-            <View
-              style={[
-                styles.circle,
-                {backgroundColor: getRiskColor(ingredient.riskLevel)},
-              ]}></View>
-            <Text style={styles.ingredientName}>{ingredient.name}</Text>
-          </View>
-        </TouchableOpacity>
-      ))}
+  <TouchableOpacity key={index} onPress={() => toggleModal(ingredient)}>
+    <View style={styles.ingredientContainer}>
+      <View
+        style={[
+          styles.circle,
+          {backgroundColor: getRiskColor(ingredient.riskLevel)},
+        ]}
+      />
+      <View style={styles.ingredientInfo}>
+        <Text style={styles.ingredientName}>{ingredient.name}</Text>
+        <Text style={styles.riskLevel}>{ingredient.riskLevel}</Text>
+      </View>
+    </View>
+  </TouchableOpacity>
+))}
+
       <Modal
         animationType="slide"
         transparent={true}
@@ -95,7 +101,7 @@ const styles = StyleSheet.create({
     marginTop: 150,
   },
   averageRisk: {
-    fontSize: 25,
+    fontSize: 10,
     fontWeight: 'bold',
     marginBottom: 10,
   },
@@ -105,12 +111,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   averageRiskText: {
-    fontSize: 25,
+    fontSize: 18,
     textAlign: 'center',
   },
   riskBox: {
-    paddingHorizontal: 8,
-    paddingVertical: 4,
+    width: 145,
+    height: 59,
     borderRadius: 15,
     justifyContent: 'center',
     alignItems: 'center',
@@ -128,22 +134,42 @@ const styles = StyleSheet.create({
     marginTop: 5,
     fontSize: 18,
   },
+  IngredientsText:{
+    marginTop: 20,
+  },
+  Ingredients:{
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'black',
+  },
   ingredientContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 6,
   },
   circle: {
-    width: 45,
-    height: 45,
+    width: 31,
+    height: 30,
     borderRadius: 25,
     marginRight: 10,
     marginTop: 15,
   },
+  ingredientInfo: {
+    flexDirection: 'row',
+    justifyContent: 'space-between', 
+    flex: 1,
+  },
   ingredientName: {
-    fontSize: 25,
+    fontSize: 19,
     fontWeight: 'bold',
     color: 'black',
+    marginTop: 10,
+  },
+  riskLevel: {
+    fontSize: 19,
+    fontWeight: 'bold',
+    color: 'black',
+    marginTop: 10,
   },
   modalContainer: {
     flex: 1,
@@ -152,20 +178,21 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalContent: {
-    backgroundColor: '#fff',
+    backgroundColor: '#F3EAE8',
     padding: 20,
     borderRadius: 10,
     elevation: 5,
     alignItems: 'center',
   },
   modalTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 10,
   },
   modalDescription: {
     fontSize: 16,
-    marginBottom: 10,
+    marginBottom: 15,
+    textAlign: 'justify',
   },
 });
 

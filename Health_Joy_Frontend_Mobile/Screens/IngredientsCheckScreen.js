@@ -39,6 +39,12 @@ const IngredientsCheckScreen = ({route}) => {
 
     handleSubmit();
   }, []);
+  
+  // //fotoğraf yüklemeden telefona hızlıca denemek için yorum satırına al
+  // const addManualData = () => {
+  //   const manualData = ["su", "paraben", "sodyum nitrit"]; // Elle veri girişi
+  //   setUniqueWords(manualData); // State'e elle veriyi set etme
+  // };
 
   const sendUniqueWordsToEndpoint = async () => {
     try {
@@ -104,6 +110,11 @@ const IngredientsCheckScreen = ({route}) => {
             onPress={sendUniqueWordsToEndpoint}>
             <Text style={styles.text}>Submit</Text>
           </TouchableOpacity>
+          {/* <TouchableOpacity //elle denemek için ekledim bu butonu yorum satırına al
+            style={styles.manualInputButton}
+            onPress={addManualData}>
+            <Text style={styles.text}>ÖNCE BAS</Text>
+          </TouchableOpacity> */}
         </View>
       </View>
     </View>
