@@ -1,9 +1,15 @@
-import React from 'react';
+import React,{ useEffect } from 'react';
 import {View, Image, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import SplashScreen from 'react-native-splash-screen';
 
 const WelcomePageScreen = () => {
   const navigation = useNavigation();
+
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []); // [] ile useEffect'in sadece bir kere çağrılmasını sağlıyoruz, yani bileşenin mount edilmesinden sonra yalnızca bir kere çalışacak
+
 
   const handlePress = () => {
     navigation.navigate('Login');

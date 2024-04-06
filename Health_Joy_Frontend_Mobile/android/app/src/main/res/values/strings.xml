@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Health_Joy_Frontend_Mobile</string>
+    <string name="SplashTheme">SplashTheme</string>
 </resources>
