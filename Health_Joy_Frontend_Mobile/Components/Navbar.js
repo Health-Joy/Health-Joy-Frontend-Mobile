@@ -23,6 +23,12 @@ const Navbar = () => {
     setMenuVisible(false);
   };
 
+  const handleBarcode = async () => {
+    console.log("Barcode button pressed");
+    setMenuVisible(false);
+    navigation.navigate('BarcodeScanner');
+  };
+
   const handleCamera = async () => {
     try {
       const image = await ImagePicker.openCamera({
@@ -108,6 +114,13 @@ const Navbar = () => {
                 style={styles.menuItemButton}>
                 <Text style={styles.menuItemText}>Take Photo</Text>
               </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={handleBarcode}
+                style={styles.menuItemButton}>
+                <Text style={styles.menuItemText}>Barcode Scan</Text>
+              </TouchableOpacity>
+
               <TouchableOpacity
                 onPress={() => setMenuVisible(false)}
                 style={styles.cancelButton}>

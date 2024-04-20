@@ -12,7 +12,7 @@ const WelcomePageScreen = () => {
 
 
   const handlePress = () => {
-    navigation.navigate('Login');
+    navigation.navigate('Home');//DEĞİŞTİR. 'Login' olacak AZURE yüzünden değiştirdim - CEREN
   };
 
   return (

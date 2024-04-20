@@ -15,6 +15,7 @@ import ChangePasswordScreen from './Screens/ChangePasswordScreen';
 import ChangeUsernameScreen from './Screens/ChangeUsernameScreen';
 import ProductNotFoundScreen from './Screens/ProductNotFoundScreen';
 import IngredientsScreen from './Screens/IngredientsScreen';
+import BarcodeScannerScreen from './Screens/BarcodeScannerScreen';
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -75,6 +76,11 @@ export default function App() {
           <Stack.Screen
             name="IngredientsDetails"
             component={IngredientsScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="BarcodeScanner"
+            component={BarcodeScannerScreen}
             options={{headerShown: false}}
           />
         </Stack.Navigator>
