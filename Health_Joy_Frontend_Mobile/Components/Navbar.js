@@ -24,9 +24,8 @@ const Navbar = () => {
   };
 
   const handleBarcode = async () => {
-    console.log("Barcode button pressed");
-    setMenuVisible(false);
     navigation.navigate('BarcodeScanner');
+    setMenuVisible(false);
   };
 
   const handleCamera = async () => {
