@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { BarkoderView, Barkoder } from 'barkoder-react-native';
 import { useNavigation } from '@react-navigation/native';
+import CheckProduct from '../Api/CheckProduct';
 
 const BarcodeScannerScreen = () => {
   const navigation = useNavigation();
@@ -16,10 +17,13 @@ const BarcodeScannerScreen = () => {
   const startScanning = () => {
     if (barkoder) { // Check if barkoder is set
       barkoder.startScanning((result) => {
-        console.log('Tarama sonucu:', result);
+        console.log('Tarama sonucu:', result.textualData);
+        //navigation.navigate('GetProduct', { barcode: result }); // Pass the barcode value as a parameter
         //navigation.navigate('ProductNotFound');
         //barcode yollanacak eğer barcode a karşılık gelen product varsa ingredient sayfasına
         //eğer uygun barcodelu product yoksa product ekleme sayfasına
+        //buradan apiye istek atılacak
+        CheckProduct(result.textualData, navigation);
       });
     }
   };
