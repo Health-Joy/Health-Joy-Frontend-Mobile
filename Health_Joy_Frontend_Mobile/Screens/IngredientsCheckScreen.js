@@ -4,6 +4,7 @@ import Navbar from '../Components/Navbar';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 import TextRecognition from 'react-native-text-recognition';
+import CheckIngredientsApi from '../Api/CheckIngredientsApi';
 
 const IngredientsCheckScreen = ({route}) => {
   const navigation = useNavigation();
@@ -14,9 +15,7 @@ const IngredientsCheckScreen = ({route}) => {
     const handleSubmit = async () => {
       try {
         const result = await TextRecognition.recognize(image.path);
-
         const linesArray = Array.isArray(result) ? result : [result];
-
         const wordsArray = [];
         linesArray.forEach(item => {
           const lines = item.split('\n');
@@ -25,58 +24,29 @@ const IngredientsCheckScreen = ({route}) => {
             wordsArray.push(...words);
           });
         });
-
         const cleanedWordsArray = wordsArray.map(word =>
           word.replace(/[.,!?]/g, ''),
         );
-
         const uniqueWordsSet = new Set(cleanedWordsArray);
         setUniqueWords(Array.from(uniqueWordsSet));
       } catch (error) {
         console.error('Text recognition error:', error);
       }
     };
-
     handleSubmit();
   }, []);
   
-  // //fotoğraf yüklemeden telefona hızlıca denemek için yorum satırına al
-  // const addManualData = () => {
-  //   const manualData = ["su", "paraben", "sodyum nitrit"]; // Elle veri girişi
-  //   setUniqueWords(manualData); // State'e elle veriyi set etme
-  // };
+  //fotoğraf yüklemeden telefona hızlıca denemek için yorum satırına al
+  const addManualData = () => {
+    const manualData = ["su", "karamel", "water"]; // Elle veri girişi
+    setUniqueWords(manualData); // State'e elle veriyi set etme
+  };
 
-  const sendUniqueWordsToEndpoint = async () => {
+  const sendIngredientsToEndpoint = async () => {
     try {
-      const response = await fetch(
-        'https://healthjoybackendmobile20240311152807.azurewebsites.net/api/Ingredient/CalculateAverageRiskLevel',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-          },
-          body: JSON.stringify(uniqueWords),
-        },
-      );
-
-      if (!response.ok) {
-        throw new Error('Unable to fetch data');
-      }
-
-      const responseData = await response.json();
-      console.log(uniqueWords);
-      console.log(responseData);
-      if (responseData) {
-        navigation.navigate('IngredientsDetails', {
-          responseData: responseData,
-        });
-      } else {
-        throw new Error('Invalid response data');
-      }
+      const responseData = await CheckIngredientsApi(uniqueWords, true, navigation);
     } catch (error) {
-      console.error('Error sending unique words to endpoint:', error);
-      alert('Error: Unable to fetch data');
+      console.error('Error:', error);
     }
   };
 
@@ -94,7 +64,6 @@ const IngredientsCheckScreen = ({route}) => {
         </Text>
         <Image source={{uri: 'file://' + image.path}} style={styles.image} />
       </View>
-
       <View style={styles.container}>
         <Image
           source={require('../assets/ingredients-icons/correct-image.png')}
@@ -107,14 +76,14 @@ const IngredientsCheckScreen = ({route}) => {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.confirmButton}
-            onPress={sendUniqueWordsToEndpoint}>
+            onPress={sendIngredientsToEndpoint}>
             <Text style={styles.text}>Submit</Text>
           </TouchableOpacity>
-          {/* <TouchableOpacity //elle denemek için ekledim bu butonu yorum satırına al
+          <TouchableOpacity //elle denemek için ekledim bu butonu yorum satırına al
             style={styles.manualInputButton}
             onPress={addManualData}>
             <Text style={styles.text}>ÖNCE BAS</Text>
-          </TouchableOpacity> */}
+          </TouchableOpacity>
         </View>
       </View>
     </View>

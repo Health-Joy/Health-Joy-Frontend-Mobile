@@ -15,16 +15,29 @@ const BarcodeScannerScreen = () => {
   };
 
   const startScanning = () => {
-    if (barkoder) { // Check if barkoder is set
-      barkoder.startScanning((result) => {
-        console.log('Tarama sonucu:', result.textualData);
-        //navigation.navigate('GetProduct', { barcode: result }); // Pass the barcode value as a parameter
-        //navigation.navigate('ProductNotFound');
-        //barcode yollanacak eğer barcode a karşılık gelen product varsa ingredient sayfasına
-        //eğer uygun barcodelu product yoksa product ekleme sayfasına
-        //buradan apiye istek atılacak
-        CheckProduct(result.textualData, navigation);
-      });
+    if (barkoder) {
+      barkoder.startScanning(async (result) => {
+      console.log('Tarama sonucu:', result.textualData);
+
+      try {
+        const responseData = await CheckProduct(result.textualData);
+
+        if(responseData){
+          // İçerik kontrol ekranına yönlendir
+          console.log(responseData.response.ingredients);
+          const responseIngredientsData = await CheckIngredientsApi(uniqueWords, false);
+          navigation.navigate('IngredientsDetails', { ingredients: responseIngredientsData });
+        }
+        else{
+          // Ürün bulunamadı ekranına yönlendir
+          navigation.navigate('ProductNotFound');
+        }
+
+      } catch (error) {
+        console.error('Hata:', error);
+        alert('Hata: Veri alınamadı');
+      }
+    });
     }
   };
 

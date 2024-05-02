@@ -7,6 +7,7 @@ import {
   Modal,
   Button,
 } from 'react-native';
+import Navbar from '../Components/Navbar';
 
 const IngredientsScreen = ({route}) => {
   const {responseData} = route.params;
@@ -26,8 +27,7 @@ const IngredientsScreen = ({route}) => {
     } else {
         return 'rgba(184, 29, 19, 1)'; // Kırmızı, tam opak
     }
-};
-
+  };
 
   const getRiskLabel = riskLevel => {
     if (riskLevel <= 4) {
@@ -45,6 +45,7 @@ const IngredientsScreen = ({route}) => {
 
   return (
     <View style={styles.container}>
+       <Navbar />
       <View style={styles.averageRiskContainer}>
         <View style={[styles.riskBox, {backgroundColor: averageRiskColor}]}>
           <Text style={[styles.riskText, styles.averageRiskText]}>
