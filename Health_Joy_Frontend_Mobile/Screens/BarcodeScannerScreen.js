@@ -19,10 +19,11 @@ const BarcodeScannerScreen = () => {
     if (barkoder) {
       barkoder.startScanning(async (result) => {
       try {
-        const responseData = await CheckProduct(result.textualData);
-        console.log('responseData:', responseData);
+        //result.textualData barcode değerine karşılık geliyor
+        const barcode = result.textualData;
+        const responseData = await CheckProduct(barcode);
         if(responseData.response == null){//eğer not found dönerse product bizde kayıtlı bir product değildir.
-          navigation.navigate('ProductNotFound');
+          navigation.navigate('ProductNotFound', { barcode});
         }
         else if(responseData){//responsedata döndüyse kayıtlı bir üründür.
           const ingredientsArray = responseData.response.ingredients.map(item => item.name);

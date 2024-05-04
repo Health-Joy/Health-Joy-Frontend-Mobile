@@ -3,24 +3,37 @@ import {
   View,
   Text,
   TouchableOpacity,
-  StyleSheet,
-  Image,
-  TextInput
+  StyleSheet
 } from 'react-native';
 import Navbar from '../Components/Navbar';
+import { useRoute, useNavigation } from '@react-navigation/native';
 
 const ProductNotFoundScreen = () => {
+    const route = useRoute();
+    const { barcode } = route.params;
+    const navigation = useNavigation();
+
+
+    const handlePress = () => {
+        navigation.navigate('GetProduct', {barcode});
+      };
+
 
     return(
     <View style={styles.container}> 
         <Navbar />
         <Text style={styles.startText}>Oops!</Text>
         <Text style={styles.text}>We couldn't find your item</Text>
-        <TouchableOpacity style={styles.button} activeOpacity={0.8} >
+        {/* <TouchableOpacity style={styles.button} activeOpacity={0.8} >
             <Text style={styles.buttonText}>Add Product</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
+        <TouchableOpacity 
+            style={styles.button} 
+            activeOpacity={0.8} 
+            onPress={handlePress}>
+            <Text style={styles.buttonText}>Add Product</Text>
+        </TouchableOpacity>
         <Text style={styles.text}>Do you want to help us?</Text>
-
     </View>
 
     );
