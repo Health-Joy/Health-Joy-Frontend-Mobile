@@ -3,10 +3,11 @@ import { SafeAreaView, StyleSheet } from 'react-native';
 import { BarkoderView, Barkoder } from 'barkoder-react-native';
 import { useNavigation } from '@react-navigation/native';
 import CheckProduct from '../Api/CheckProduct';
+import CheckIngredientsApi from '../Api/CheckIngredientsApi';
 
 const BarcodeScannerScreen = () => {
   const navigation = useNavigation();
-  const [barkoder, setBarkoder] = useState(null); // Initialize barkoder as null
+  const [barkoder, setBarkoder] = useState(null); 
 
   const onBarkoderViewCreated = barkoder => {
     barkoder.setBarcodeTypeEnabled(Barkoder.BarcodeType.qr, true);
@@ -17,25 +18,19 @@ const BarcodeScannerScreen = () => {
   const startScanning = () => {
     if (barkoder) {
       barkoder.startScanning(async (result) => {
-      console.log('Tarama sonucu:', result.textualData);
-
       try {
         const responseData = await CheckProduct(result.textualData);
-
-        if(responseData){
-          // İçerik kontrol ekranına yönlendir
-          console.log(responseData.response.ingredients);
-          const responseIngredientsData = await CheckIngredientsApi(uniqueWords, false);
-          navigation.navigate('IngredientsDetails', { ingredients: responseIngredientsData });
-        }
-        else{
-          // Ürün bulunamadı ekranına yönlendir
+        console.log('responseData:', responseData);
+        if(responseData.response == null){//eğer not found dönerse product bizde kayıtlı bir product değildir.
           navigation.navigate('ProductNotFound');
         }
-
+        else if(responseData){//responsedata döndüyse kayıtlı bir üründür.
+          const ingredientsArray = responseData.response.ingredients.map(item => item.name);
+          await CheckIngredientsApi(ingredientsArray, false, navigation);
+        }
       } catch (error) {
         console.error('Hata:', error);
-        alert('Hata: Veri alınamadı');
+        //alert('Hata: Veri alınamadı');
       }
     });
     }

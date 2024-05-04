@@ -36,11 +36,11 @@ const IngredientsCheckScreen = ({route}) => {
     handleSubmit();
   }, []);
   
-  //fotoğraf yüklemeden telefona hızlıca denemek için yorum satırına al
-  const addManualData = () => {
-    const manualData = ["su", "karamel", "water"]; // Elle veri girişi
-    setUniqueWords(manualData); // State'e elle veriyi set etme
-  };
+  // //fotoğraf yüklemeden telefona hızlıca denemek için yorum satırına al
+  // const addManualData = () => {
+  //   const manualData = ["su", "karamel", "water"]; // Elle veri girişi
+  //   setUniqueWords(manualData); // State'e elle veriyi set etme
+  // };
 
   const sendIngredientsToEndpoint = async () => {
     try {
@@ -79,16 +79,20 @@ const IngredientsCheckScreen = ({route}) => {
             onPress={sendIngredientsToEndpoint}>
             <Text style={styles.text}>Submit</Text>
           </TouchableOpacity>
-          <TouchableOpacity //elle denemek için ekledim bu butonu yorum satırına al
+          {/* <TouchableOpacity //elle denemek için ekledim bu butonu yorum satırına al
             style={styles.manualInputButton}
             onPress={addManualData}>
             <Text style={styles.text}>ÖNCE BAS</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </View>
     </View>
   );
 };
+
+
+
+
 
 const styles = StyleSheet.create({
   container: {

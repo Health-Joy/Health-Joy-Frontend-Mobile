@@ -19,7 +19,6 @@ const CheckIngredientsApi = async (uniqueWords, flag, navigation) => {
     }
     console.log("flag:   ", flag);
     if (flag) {//ingredients check screenden gelmiş demek
-      console.log("flag:   ", flag);
       if (responseData) {
         navigation.navigate('IngredientsDetails', {
           responseData: responseData,
@@ -29,7 +28,14 @@ const CheckIngredientsApi = async (uniqueWords, flag, navigation) => {
       }
     } else {
       //BarcodeScannerScereenden gelmiş demek 
-      //Burada özel bir işlem yapılacaksa ekleme yapılabilir.
+      //burada object array i geliyor bunu string arraye almam lazım
+      if (responseData) {
+        navigation.navigate('IngredientsDetails', {
+          responseData: responseData,
+        });
+      } else {
+        navigation.navigate('ProductNotFound');
+      }
     }
 
   } catch (error) {
