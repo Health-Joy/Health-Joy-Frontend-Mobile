@@ -2,21 +2,38 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity} from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import ImagePicker from 'react-native-image-crop-picker';
-import TextRecognition from 'react-native-text-recognition';// TextRecognition kütüphanesini projenize ekleyin
+import TextRecognition from 'react-native-text-recognition';
 import Navbar from '../Components/Navbar';
+import CreateProductApi from '../Api/CreateProductApi';
 
 const GetProductInfoScreen = () => {
   const route = useRoute();
   const { barcode } = route.params;
   const navigation = useNavigation();
   const [productName, setProductName] = useState('');
+  const [userId, setuserId] = useState('');
   const [productType, setProductType] = useState('');
   const [description, setDescription] = useState('');
   const [ingredients, setIngredients] = useState([]);
 
-  const handleSave = () => {
-    //Apiye istek Kaydetme işlemi
+  const handleSave = async () => {
+
+    setuserId('1');//user bilgisii getirilince değişecek
+    setIngredients([
+      'Bisphenol-A',
+      'Nitrat-Nitrit',
+      'Karamel'
+    ]);//ocr sorunu geçince otomatik setlenecek
+
+    const success = await CreateProductApi(barcode, productName, productType, description, userId, ingredients);
+    if (success) {
+      console.log('Product created successfully');
+      navigation.navigate('Search');
+    } else {
+      console.log('Failed to create product');
+    }
   };
+
 
   const handleCamera = async () => {
     try {
@@ -72,7 +89,7 @@ const GetProductInfoScreen = () => {
     <View style={styles.container}>
       <Navbar />
       <Text style={styles.label}>Barkod: {barcode}</Text>
-      <Text style={styles.label}>User ID: 123</Text>
+      <Text style={styles.label}>User Id: {userId}</Text>
       <Text style={styles.sectionTitle}>Product Information</Text>
       <View style={styles.inputContainer}>
         <Text style={styles.inputLabel}>Product Name:</Text>
