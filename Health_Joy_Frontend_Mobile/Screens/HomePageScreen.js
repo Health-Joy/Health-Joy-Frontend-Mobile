@@ -1,12 +1,22 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import Navbar from '../Components/Navbar';
+import {useNavigation} from '@react-navigation/native';
+
 const HomePageScreen = () => {
+  const navigation = useNavigation();
+
+  const handleCategoryPress = category => {
+    navigation.navigate('ProductList', {category});
+  };
+
   return (
     <View style={styles.container}>
       <Navbar />
       <View style={styles.viewStyle}>
-        <TouchableOpacity style={styles.touchableOpacity}>
+        <TouchableOpacity
+          style={styles.touchableOpacity}
+          onPress={() => handleCategoryPress('food')}>
           <View style={styles.buttonContent}>
             <Image
               style={styles.foodIcon}
@@ -19,26 +29,30 @@ const HomePageScreen = () => {
             />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.touchableOpacity}>
+        <TouchableOpacity
+          style={styles.touchableOpacity}
+          onPress={() => handleCategoryPress('beverage')}>
           <View style={styles.buttonContent}>
             <Image
               style={styles.beverageIcon}
               source={require('../assets/home-page-icons/beverage-icon.png')}
             />
-            <Text style={styles.text}>Beverages</Text>
+            <Text style={styles.text}> Beverages </Text>
             <Image
               style={styles.cosmeticIcon}
               source={require('../assets/home-page-icons/arrow.png')}
             />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.touchableOpacity}>
+        <TouchableOpacity
+          style={styles.touchableOpacity}
+          onPress={() => handleCategoryPress('cosmetic')}>
           <View style={styles.buttonContent}>
             <Image
               style={styles.cosmeticIcon}
               source={require('../assets/home-page-icons/cosmetic-icon.png')}
             />
-            <Text style={styles.text}>Cosmotics</Text>
+            <Text style={styles.text}> Cosmetics </Text>
             <Image
               style={styles.cosmeticIcon}
               source={require('../assets/home-page-icons/arrow.png')}
@@ -75,15 +89,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
-  text: {
-    fontSize: 16,
-    fontStyle: 'italic',
-    marginHorizontal: 60,
-  },
   textFood: {
     fontSize: 16,
     fontStyle: 'italic',
     marginHorizontal: 67,
+  },
+  text: {
+    fontSize: 16,
+    fontStyle: 'italic',
+    marginHorizontal: 60,
   },
   foodIcon: {
     width: 30,
