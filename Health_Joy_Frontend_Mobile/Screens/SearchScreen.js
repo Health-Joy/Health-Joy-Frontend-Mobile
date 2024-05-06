@@ -9,8 +9,10 @@ import {
   FlatList,
 } from 'react-native';
 import Navbar from '../Components/Navbar';
+import {useNavigation} from '@react-navigation/native';
 
 const SearchScreen = () => {
+  const navigation = useNavigation();
   const [searchText, setSearchText] = useState('');
   const [filteredData, setFilteredData] = useState([]);
   const [data, setData] = useState([]);
@@ -48,33 +50,51 @@ const SearchScreen = () => {
     }
   }, [searchText, data]);
 
+  const navigateToIngredients = item => {
+    const ingredients = item.ingredients.map(ingredient => ({
+      name: ingredient.name,
+      riskLevel: ingredient.riskLevel,
+    }));
+
+    const averageRiskLevel = calculateAverageRisk(ingredients);
+    const formattedAverageRiskLevel = averageRiskLevel.toFixed(1);
+
+    const responseData = {
+      averageRiskLevel: formattedAverageRiskLevel,
+      ing: ingredients,
+    };
+
+    navigation.navigate('IngredientsDetails', {
+      responseData,
+    });
+  };
+
+  const calculateAverageRisk = ingredients => {
+    if (ingredients.length === 0) return 0;
+
+    const totalRiskLevel = ingredients.reduce(
+      (sum, ingredient) => sum + ingredient.riskLevel,
+      0,
+    );
+    return totalRiskLevel / ingredients.length;
+  };
+
   return (
     <View style={styles.container}>
       <Navbar />
       <TouchableOpacity style={styles.touchableOpacity}>
-        <View style={styles.inputContent}>
-          <TextInput
-            style={styles.textSearch}
-            placeholder="Search"
-            value={searchText}
-            onChangeText={setSearchText}
-            textAlign="left"
-            textAlignVertical="center"
-          />
-          <Image
-            style={styles.searchIcon}
-            source={require('../assets/search-page-icons/search-icon.png')}
-          />
-        </View>
+        {/* Search bar */}
       </TouchableOpacity>
 
       <FlatList
         data={filteredData}
-        keyExtractor={item => item.productId.toString()}
+        keyExtractor={item => item.barcodeNo.toString()}
         renderItem={({item}) => (
-          <View style={styles.itemContainer}>
+          <TouchableOpacity
+            style={styles.itemContainer}
+            onPress={() => navigateToIngredients(item)}>
             <Text style={styles.itemText}>{item.name}</Text>
-          </View>
+          </TouchableOpacity>
         )}
       />
     </View>
