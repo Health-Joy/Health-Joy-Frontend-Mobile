@@ -18,9 +18,9 @@ const LoginScreen = () => {
 
   const handleLogin = () => {
     LoginApi(email, password).then(data => {
-      console.log(data);
-      userData.userId = data;
-      console.log(userData);
+      userData.userId = data.response.userId;
+      userData.userName = data.response.userName;
+      userData.userEmail = data.response.email;
       navigation.navigate('Home');
     })
     .catch(error => {

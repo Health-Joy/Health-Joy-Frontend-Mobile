@@ -9,7 +9,7 @@ import {
   Alert
 } from 'react-native';
 import Navbar from '../Components/Navbar';
-import GlobalVariable from '../Global/GlobalVariable';
+import userData from '../Global/GlobalVariable';
 
 const ChangePasswordScreen = () => {
   const [currentPassword, setCurrentPassword] = useState('');
@@ -18,7 +18,7 @@ const ChangePasswordScreen = () => {
 
   const handleChangePassword = async () => {
     try {
-      const userID = GlobalVariable.userId;
+      const userID = userData.userId;
       const response = await fetch(`https://healthjoybackendmobile20240311152807.azurewebsites.net/api/User/${userID}`, {
         method: 'PUT',
         headers: {

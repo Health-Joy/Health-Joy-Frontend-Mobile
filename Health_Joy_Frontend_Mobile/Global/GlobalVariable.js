@@ -1,5 +1,7 @@
 const userData = {
-    userId: null
+    userId: null,
+    userName: null,
+    userEmail: null
   };
   
   export default userData;

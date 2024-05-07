@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import Navbar from '../Components/Navbar';
 import { useNavigation } from '@react-navigation/native';
+import userData from '../Global/GlobalVariable';
 
 const UserProfileScreen = () => {
   const navigation = useNavigation();
@@ -15,8 +16,6 @@ const UserProfileScreen = () => {
   const navigateToChangePassword = () => {
     navigation.navigate('ChangePassword');
   };
-
-
 
   return (
     <View style={styles.container}>
@@ -32,16 +31,15 @@ const UserProfileScreen = () => {
             style={styles.userIcon}
             source={require('../assets/user-page-icons/username-icon.png')}
           />
-          <Text style={styles.text}>Name</Text>
+          <Text style={styles.text}>{userData.userName}</Text>
         </View>
-
 
         <View style={styles.textContent}>
           <Image
             style={styles.emailIcon}
             source={require('../assets/user-page-icons/email-icon.png')}
           />
-          <Text style={styles.text}>Email</Text>
+          <Text style={styles.text}>{userData.userEmail}</Text>
         </View>
 
         <TouchableOpacity
