@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import LoginApi from '../Api/LoginApi';
+import userData from '../Global/GlobalVariable';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -17,6 +18,9 @@ const LoginScreen = () => {
 
   const handleLogin = () => {
     LoginApi(email, password).then(data => {
+      console.log(data);
+      userData.userId = data;
+      console.log(userData);
       navigation.navigate('Home');
     })
     .catch(error => {

@@ -5,6 +5,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import TextRecognition from 'react-native-text-recognition';
 import Navbar from '../Components/Navbar';
 import CreateProductApi from '../Api/CreateProductApi';
+import userData from '../Global/GlobalVariable';
 
 const GetProductInfoScreen = () => {
   const route = useRoute();
@@ -18,7 +19,9 @@ const GetProductInfoScreen = () => {
 
   const handleSave = async () => {
 
-    setuserId('1');//user bilgisii getirilince değişecek
+    setuserId(userData.userId);//user bilgisii getirilince değişecek
+    console.log("sdgsdgs"+userId);
+    
     setIngredients([
       'Bisphenol-A',
       'Nitrat-Nitrit',
@@ -89,7 +92,7 @@ const GetProductInfoScreen = () => {
     <View style={styles.container}>
       <Navbar />
       <Text style={styles.label}>Barkod: {barcode}</Text>
-      <Text style={styles.label}>User Id: {userId}</Text>
+      <Text style={styles.label}></Text>
       <Text style={styles.sectionTitle}>Product Information</Text>
       <View style={styles.inputContainer}>
         <Text style={styles.inputLabel}>Product Name:</Text>
