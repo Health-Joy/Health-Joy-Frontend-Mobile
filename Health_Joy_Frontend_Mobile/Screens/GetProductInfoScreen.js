@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity} from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import ImagePicker from 'react-native-image-crop-picker';
-import TextRecognition from 'react-native-text-recognition';
+import TextRecognition from '@react-native-ml-kit/text-recognition';
 import Navbar from '../Components/Navbar';
 import CreateProductApi from '../Api/CreateProductApi';
 import userData from '../Global/GlobalVariable';
@@ -19,14 +19,7 @@ const GetProductInfoScreen = () => {
 
   const handleSave = async () => {
 
-    setuserId(userData.userId);//user bilgisii getirilince değişecek
-    console.log("sdgsdgs"+userId);
-    
-    setIngredients([
-      'Bisphenol-A',
-      'Nitrat-Nitrit',
-      'Karamel'
-    ]);//ocr sorunu geçince otomatik setlenecek
+    setuserId(userData.userId);
 
     const success = await CreateProductApi(barcode, productName, productType, description, userId, ingredients);
     if (success) {
@@ -69,7 +62,7 @@ const GetProductInfoScreen = () => {
   const recognizeText = async (image) => {
     try {
       const result = await TextRecognition.recognize(image.path);
-      const linesArray = Array.isArray(result) ? result : [result];
+      const linesArray = Array.isArray(result.text) ? result.text : [result.text];
       const wordsArray = [];
       linesArray.forEach(item => {
         const lines = item.split('\n');

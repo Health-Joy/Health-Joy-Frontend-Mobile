@@ -3,7 +3,7 @@ import {View, Image, StyleSheet, Button, Text} from 'react-native';
 import Navbar from '../Components/Navbar';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
-import TextRecognition from 'react-native-text-recognition';
+import TextRecognition from '@react-native-ml-kit/text-recognition';
 import CheckIngredientsApi from '../Api/CheckIngredientsApi';
 
 const IngredientsCheckScreen = ({route}) => {
@@ -14,8 +14,10 @@ const IngredientsCheckScreen = ({route}) => {
   useEffect(() => {
     const handleSubmit = async () => {
       try {
+
         const result = await TextRecognition.recognize(image.path);
-        const linesArray = Array.isArray(result) ? result : [result];
+        console.log("resullllllttt"+result.text)
+        const linesArray = Array.isArray(result.text) ? result.text : [result.text];
         const wordsArray = [];
         linesArray.forEach(item => {
           const lines = item.split('\n');
