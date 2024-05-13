@@ -1,45 +1,63 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {View, Text, FlatList, TouchableOpacity, StyleSheet} from 'react-native';
 import Navbar from '../Components/Navbar';
 import GetAllFavoriteApi from '../Api/Favorite/GetAllFavoriteApi';
 import userData from '../Global/GlobalVariable';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
 const UserFavoriteScreen = () => {
   const [favoriteProducts, setFavoriteProducts] = useState([]);
   const navigation = useNavigation();
-  const [Response, setResponse] = useState([]);
 
   useEffect(() => {
-    const fetchFavoriteProducts = async () => {
+    async function fetchFavoriteProducts() {
       try {
-        const response = await GetAllFavoriteApi(userData.userId); 
-        setResponse(response);
+        const response = await GetAllFavoriteApi(userData.userId);
         if (response.success) {
           setFavoriteProducts(response.response);
         } else {
-          console.error('Failed to fetch favorite products');
+          console.error('Failed to fetch favorite products:', response.message);
         }
       } catch (error) {
         console.error('Error fetching favorite products:', error);
       }
-    };
-
+    }
     fetchFavoriteProducts();
   }, []);
 
-  const handleProductPress = (item) => {//bu kısım düzenlecenecek
-    // navigation.navigate('IngredientsDetails', {
-    //   responseData: Response,
-    //   productId: item.productId,
-    //   productName: item.name,
-    //   flag: false
-    // });
-    };
-  
+  const handleProductPress = item => {
+    const ingredients = item.ingredients.map(ingredient => ({
+      name: ingredient.name,
+      riskLevel: ingredient.riskLevel,
+    }));
 
-  const renderProductItem = ({ item }) => (
-    <TouchableOpacity style={styles.productItem} onPress={() => handleProductPress(item)}>
+    const averageRiskLevel = calculateAverageRisk(ingredients);
+    const formattedAverageRiskLevel = averageRiskLevel.toFixed(1);
+
+    const responseData = {
+      averageRiskLevel: formattedAverageRiskLevel,
+      ing: ingredients,
+    };
+
+    navigation.navigate('IngredientsDetails', {
+      responseData,
+    });
+  };
+
+  const calculateAverageRisk = ingredients => {
+    if (ingredients.length === 0) return 0;
+
+    const totalRiskLevel = ingredients.reduce(
+      (sum, ingredient) => sum + ingredient.riskLevel,
+      0,
+    );
+    return totalRiskLevel / ingredients.length;
+  };
+
+  const renderProductItem = ({item}) => (
+    <TouchableOpacity
+      style={styles.productItem}
+      onPress={() => handleProductPress(item)}>
       <Text style={styles.productName}>{item.name}</Text>
       <Text style={styles.productDescription}>{item.description}</Text>
       <Text style={styles.productRisk}>
@@ -55,7 +73,7 @@ const UserFavoriteScreen = () => {
       <FlatList
         data={favoriteProducts}
         renderItem={renderProductItem}
-        keyExtractor={(item) => item.productId.toString()}
+        keyExtractor={item => item.productId.toString()}
         style={styles.productList}
       />
     </View>
