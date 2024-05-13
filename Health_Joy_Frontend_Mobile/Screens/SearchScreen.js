@@ -85,7 +85,20 @@ const SearchScreen = () => {
     <View style={styles.container}>
       <Navbar />
       <TouchableOpacity style={styles.touchableOpacity}>
-        {/* Search bar */}
+        <View style={styles.inputContent}>
+          <TextInput
+            style={styles.textSearch}
+            placeholder="Search"
+            value={searchText}
+            onChangeText={setSearchText}
+            textAlign="left"
+            textAlignVertical="center"
+          />
+          <Image
+            style={styles.searchIcon}
+            source={require('../assets/search-page-icons/search-icon.png')}
+          />
+        </View>
       </TouchableOpacity>
 
       <FlatList
