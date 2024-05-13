@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Modal, Button, Image } from 'react-native';
 import Navbar from '../Components/Navbar';
 import userData from '../Global/GlobalVariable';
+import AddFavoriteApi from '../Api/Favorite/AddFavoriteApi';
+import RemoveFavoriteApi from '../Api/Favorite/RemoveFavoriteApi';
 
 const IngredientsScreen = ({ route }) => {
   const { responseData, productId, productName, flag} = route.params;
@@ -9,7 +11,6 @@ const IngredientsScreen = ({ route }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [heartIconSource, setHeartIconSource] = useState(require('../assets/favorite-icons/heart_empty.png'));
   const [selectedIngredient, setSelectedIngredient] = useState(null);
-
 
   const toggleModal = ingredient => {
     setSelectedIngredient(ingredient);
@@ -30,12 +31,12 @@ const IngredientsScreen = ({ route }) => {
     userFavoriteProductCheck();
   }, []);
 
-
   const handleFavoriteButton = () => {
-    console.log("user favori" + userData.userFavorites);
+    console.log("user favori: " + userData.userFavorites);
     
     if (!isFavorite) {
       userData.userFavorites.push(productId); // Ekleme işlemi
+      AddFavoriteApi(productId, userData.userId);
       setHeartIconSource(require('../assets/favorite-icons/heart.png')); // Dolu kalp ikonunu kullan
       setIsFavorite(true);
     } else {
@@ -43,14 +44,11 @@ const IngredientsScreen = ({ route }) => {
       if (index > -1) {
         userData.userFavorites.splice(index, 1); // Kaldırma işlemi
       }
+      RemoveFavoriteApi(productId, userData.userId);
       setHeartIconSource(require('../assets/favorite-icons/heart_empty.png')); // Boş kalp ikonunu kullan
       setIsFavorite(false);
     }
   };
-
-
-
-  
 
   const getRiskColor = riskLevel => {
     if (riskLevel <= 4) {
@@ -62,6 +60,7 @@ const IngredientsScreen = ({ route }) => {
     }
   };
 
+
   const getRiskLabel = riskLevel => {
     if (riskLevel <= 4) {
       return 'Safe';
@@ -71,8 +70,6 @@ const IngredientsScreen = ({ route }) => {
       return 'Poor';
     }
   };
-
-
 
   const averageRiskLabel = `${responseData.averageRiskLevel}/10`;
   const averageRiskColor = getRiskColor(responseData.averageRiskLevel);
@@ -92,7 +89,6 @@ const IngredientsScreen = ({ route }) => {
           />
         </TouchableOpacity>
       )}
-
       <View style={styles.averageRiskContainer}>
         <View style={[styles.riskBox, { backgroundColor: averageRiskColor }]}>
           <Text style={[styles.riskText, styles.averageRiskText]}>
