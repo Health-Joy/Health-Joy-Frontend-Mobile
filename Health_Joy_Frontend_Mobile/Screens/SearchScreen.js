@@ -66,6 +66,8 @@ const SearchScreen = () => {
 
     navigation.navigate('IngredientsDetails', {
       responseData,
+      flag: false,
+      productName: item.name,
     });
   };
 
