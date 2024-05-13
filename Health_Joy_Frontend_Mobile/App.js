@@ -17,6 +17,7 @@ import IngredientsScreen from './Screens/IngredientsScreen';
 import BarcodeScannerScreen from './Screens/BarcodeScannerScreen';
 import GetProductInfoScreen from './Screens/GetProductInfoScreen';
 import ProductListScreen from './Screens/ProductListScreen';
+import UserFavoriteScrren from './Screens/UserFavoriteScreen';
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -87,6 +88,11 @@ export default function App() {
           <Stack.Screen
             name="ProductList"
             component={ProductListScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Favorite"
+            component={UserFavoriteScrren}
             options={{headerShown: false}}
           />
         </Stack.Navigator>

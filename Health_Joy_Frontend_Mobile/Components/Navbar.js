@@ -81,7 +81,7 @@ const Navbar = () => {
             style={styles.image}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigateToScreen('Favourite')}>
+        <TouchableOpacity onPress={() => navigateToScreen('Favorite')}>
           <Image
             source={require('../assets/navbar-icons/favorite-icon.png')}
             style={styles.image}
