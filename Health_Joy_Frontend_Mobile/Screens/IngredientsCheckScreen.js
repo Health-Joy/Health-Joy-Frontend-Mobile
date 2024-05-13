@@ -37,7 +37,7 @@ const IngredientsCheckScreen = ({route}) => {
     };
     handleSubmit();
   }, []);
-  
+
   // //fotoğraf yüklemeden telefona hızlıca denemek için yorum satırına al
   // const addManualData = () => {
   //   const manualData = ["su", "karamel", "water"]; // Elle veri girişi
@@ -46,7 +46,11 @@ const IngredientsCheckScreen = ({route}) => {
 
   const sendIngredientsToEndpoint = async () => {
     try {
-      const responseData = await CheckIngredientsApi(uniqueWords, true, navigation);
+      const responseData = await CheckIngredientsApi(
+        uniqueWords,
+        true,
+        navigation,
+      );
     } catch (error) {
       console.error('Error:', error);
     }
@@ -91,10 +95,6 @@ const IngredientsCheckScreen = ({route}) => {
     </View>
   );
 };
-
-
-
-
 
 const styles = StyleSheet.create({
   container: {

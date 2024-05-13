@@ -84,10 +84,11 @@ const ProductListScreen = ({route}) => {
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
     backgroundColor: '#fff',
     padding: 20,
   },
@@ -97,23 +98,31 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   productItem: {
+    padding: 10,
+    backgroundColor: '#D4FAE8',
     marginBottom: 20,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
+    borderRadius: 25,
+    width: 275,
+    alignSelf: 'center',
   },
   productName: {
     fontSize: 18,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   productDescription: {
     fontSize: 16,
     color: '#666',
     marginBottom: 5,
+    textAlign: 'center',
   },
   productRisk: {
     fontSize: 16,
     fontWeight: 'bold',
     color: 'red',
+    textAlign: 'center',
   },
 });
 
