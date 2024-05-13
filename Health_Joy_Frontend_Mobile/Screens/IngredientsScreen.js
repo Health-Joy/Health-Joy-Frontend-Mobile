@@ -1,17 +1,15 @@
-import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Modal,
-  Button,
-} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Modal, Button, Image } from 'react-native';
 import Navbar from '../Components/Navbar';
+import userData from '../Global/GlobalVariable';
+import AddFavoriteApi from '../Api/Favorite/AddFavoriteApi';
+import RemoveFavoriteApi from '../Api/Favorite/RemoveFavoriteApi';
 
-const IngredientsScreen = ({route}) => {
-  const {responseData} = route.params;
+const IngredientsScreen = ({ route }) => {
+  const { responseData, productId, productName, flag} = route.params;
   const [showModal, setShowModal] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [heartIconSource, setHeartIconSource] = useState(require('../assets/favorite-icons/heart_empty.png'));
   const [selectedIngredient, setSelectedIngredient] = useState(null);
 
   const toggleModal = ingredient => {
@@ -19,15 +17,49 @@ const IngredientsScreen = ({route}) => {
     setShowModal(!showModal);
   };
 
-  const getRiskColor = riskLevel => {
-    if (riskLevel <= 4) {
-        return 'rgba(0, 132, 80, 1)'; // Yeşil, tam opak
-    } else if (riskLevel <= 7) {
-        return 'rgba(255, 200, 58, 0.85)'; // Sarı, 0.85 opaklık
+  const userFavoriteProductCheck = () => {
+    if(userData.userFavorites.includes(productId))  {
+      setHeartIconSource(require('../assets/favorite-icons/heart.png')); // Dolu kalp ikonunu kullan
+      setIsFavorite(true);
     } else {
-        return 'rgba(184, 29, 19, 1)'; // Kırmızı, tam opak
+      setHeartIconSource(require('../assets/favorite-icons/heart_empty.png')); // Boş kalp ikonunu kullan
+      setIsFavorite(false);
+    }
+  }
+
+  useEffect(() => {
+    userFavoriteProductCheck();
+  }, []);
+
+  const handleFavoriteButton = () => {
+    console.log("user favori: " + userData.userFavorites);
+    
+    if (!isFavorite) {
+      userData.userFavorites.push(productId); // Ekleme işlemi
+      AddFavoriteApi(productId, userData.userId);
+      setHeartIconSource(require('../assets/favorite-icons/heart.png')); // Dolu kalp ikonunu kullan
+      setIsFavorite(true);
+    } else {
+      const index = userData.userFavorites.indexOf(productId);
+      if (index > -1) {
+        userData.userFavorites.splice(index, 1); // Kaldırma işlemi
+      }
+      RemoveFavoriteApi(productId, userData.userId);
+      setHeartIconSource(require('../assets/favorite-icons/heart_empty.png')); // Boş kalp ikonunu kullan
+      setIsFavorite(false);
     }
   };
+
+  const getRiskColor = riskLevel => {
+    if (riskLevel <= 4) {
+      return 'rgba(0, 132, 80, 1)'; // Yeşil, tam opak
+    } else if (riskLevel <= 7) {
+      return 'rgba(255, 200, 58, 0.85)'; // Sarı, 0.85 opaklık
+    } else {
+      return 'rgba(184, 29, 19, 1)'; // Kırmızı, tam opak
+    }
+  };
+
 
   const getRiskLabel = riskLevel => {
     if (riskLevel <= 4) {
@@ -45,9 +77,20 @@ const IngredientsScreen = ({route}) => {
 
   return (
     <View style={styles.container}>
-       <Navbar />
+      <Navbar />
+      <View style={styles.productNameContainer}>
+        <Text style={styles.productName}>{productName}</Text>
+      </View>
+      {flag === false && (
+        <TouchableOpacity style={styles.heartButton} onPress={handleFavoriteButton}>
+          <Image
+            source={heartIconSource}
+            style={styles.heartIcon}
+          />
+        </TouchableOpacity>
+      )}
       <View style={styles.averageRiskContainer}>
-        <View style={[styles.riskBox, {backgroundColor: averageRiskColor}]}>
+        <View style={[styles.riskBox, { backgroundColor: averageRiskColor }]}>
           <Text style={[styles.riskText, styles.averageRiskText]}>
             {averageRiskLabel}
           </Text>
@@ -60,21 +103,21 @@ const IngredientsScreen = ({route}) => {
         <Text style={styles.Ingredients}>Ingredients</Text>
       </View>
       {responseData.ing.map((ingredient, index) => (
-  <TouchableOpacity key={index} onPress={() => toggleModal(ingredient)}>
-    <View style={styles.ingredientContainer}>
-      <View
-        style={[
-          styles.circle,
-          {backgroundColor: getRiskColor(ingredient.riskLevel)},
-        ]}
-      />
-      <View style={styles.ingredientInfo}>
-        <Text style={styles.ingredientName}>{ingredient.name}</Text>
-        <Text style={styles.riskLevel}>{ingredient.riskLevel}</Text>
-      </View>
-    </View>
-  </TouchableOpacity>
-))}
+        <TouchableOpacity key={index} onPress={() => toggleModal(ingredient)}>
+          <View style={styles.ingredientContainer}>
+            <View
+              style={[
+                styles.circle,
+                { backgroundColor: getRiskColor(ingredient.riskLevel) },
+              ]}
+            />
+            <View style={styles.ingredientInfo}>
+              <Text style={styles.ingredientName}>{ingredient.name}</Text>
+              <Text style={styles.riskLevel}>{ingredient.riskLevel}</Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+      ))}
 
       <Modal
         animationType="slide"
@@ -135,10 +178,10 @@ const styles = StyleSheet.create({
     marginTop: 5,
     fontSize: 18,
   },
-  IngredientsText:{
+  IngredientsText: {
     marginTop: 20,
   },
-  Ingredients:{
+  Ingredients: {
     fontSize: 24,
     fontWeight: 'bold',
     color: 'black',
@@ -157,7 +200,7 @@ const styles = StyleSheet.create({
   },
   ingredientInfo: {
     flexDirection: 'row',
-    justifyContent: 'space-between', 
+    justifyContent: 'space-between',
     flex: 1,
   },
   ingredientName: {
@@ -194,6 +237,24 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 15,
     textAlign: 'justify',
+  },
+  heartButton: {
+    position: 'absolute',
+    top: -100,
+    right: 24, // İkonunuzun konumunu ve hizalamasını buradan ayarlayabilirsiniz
+  },
+  heartIcon: {
+    width: 40,
+    height: 40,
+  },
+  productNameContainer: {
+    alignItems: 'center',
+    top: -30,
+  },
+  productName: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'black',
   },
 });
 

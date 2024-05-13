@@ -12,7 +12,6 @@ import RegistrationScreen from './Screens/RegistrationScreen';
 import WelcomePageScreen from './Screens/WelcomePageScreen';
 import UserProfileScreen from './Screens/UserProfileScreen';
 import ChangePasswordScreen from './Screens/ChangePasswordScreen';
-import ChangeUsernameScreen from './Screens/ChangeUsernameScreen';
 import ProductNotFoundScreen from './Screens/ProductNotFoundScreen';
 import IngredientsScreen from './Screens/IngredientsScreen';
 import BarcodeScannerScreen from './Screens/BarcodeScannerScreen';
@@ -63,11 +62,6 @@ export default function App() {
           <Stack.Screen
             name="ChangePassword"
             component={ChangePasswordScreen}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name="ChangeUsername"
-            component={ChangeUsernameScreen}
             options={{headerShown: false}}
           />
           <Stack.Screen

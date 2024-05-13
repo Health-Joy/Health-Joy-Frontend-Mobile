@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import Navbar from '../Components/Navbar';
 import { useNavigation } from '@react-navigation/native';
+import userData from '../Global/GlobalVariable';
 
 const UserProfileScreen = () => {
   const navigation = useNavigation();
@@ -16,39 +17,34 @@ const UserProfileScreen = () => {
     navigation.navigate('ChangePassword');
   };
 
-  const navigateToChangeUsername = () => {
-    navigation.navigate('ChangeUsername');
-  };
-
-
   return (
     <View style={styles.container}>
       <Navbar />
-
       <Image
         style={styles.image}
         source={require('../assets/user-page-icons/user-icon.png')}
       />
       <View style={styles.viewStyle}>
-        <TouchableOpacity 
-        style={styles.touchableOpacity}
-        onPress={navigateToChangeUsername}>
-          <View style={styles.buttonContent}>
-            <Image
-              style={styles.userIcon}
-              source={require('../assets/user-page-icons/username-icon.png')}
-            />
-            <Text style={styles.textUser}> Username </Text>
-            <Image
-              style={styles.arrowIcon}
-              source={require('../assets/home-page-icons/arrow.png')}
-            />
-          </View>
-        </TouchableOpacity>
+
+        <View style={styles.textContent}>
+          <Image
+            style={styles.userIcon}
+            source={require('../assets/user-page-icons/username-icon.png')}
+          />
+          <Text style={styles.text}>{userData.userName}</Text>
+        </View>
+
+        <View style={styles.textContent}>
+          <Image
+            style={styles.emailIcon}
+            source={require('../assets/user-page-icons/email-icon.png')}
+          />
+          <Text style={styles.text}>{userData.userEmail}</Text>
+        </View>
+
         <TouchableOpacity
           style={styles.touchableOpacity}
-          onPress={navigateToChangePassword}
-        >
+          onPress={navigateToChangePassword}>
           <View style={styles.buttonContent}>
             <Image
               style={styles.passwordIcon}
@@ -61,14 +57,6 @@ const UserProfileScreen = () => {
             />
           </View>
         </TouchableOpacity>
-
-        <View style={styles.textContent}>
-          <Image
-            style={styles.emailIcon}
-            source={require('../assets/user-page-icons/email-icon.png')}
-          />
-          <Text style={styles.text}>Email</Text>
-        </View>
       </View>
     </View>
   );

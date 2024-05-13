@@ -8,38 +8,29 @@ import {
   Image,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import LoginApi from '../Api/LoginApi';
+import userData from '../Global/GlobalVariable';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    fetch(
-      `https://healthjoybackendmobile20240311152807.azurewebsites.net/api/User/Login?email=${email}&password=${password}`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      },
-    ).then(response => {
-      if (!response.ok) {
-        return response.json().then(data => {
-          alert('Username or Password Incorrect');
-        });
-      } else {
-        navigation.navigate('Home');
-      }
+    LoginApi(email, password).then(data => {
+      userData.userId = data.response.userId;
+      userData.userName = data.response.userName;
+      userData.userEmail = data.response.email;
+      userData.userFavorites = data.response.favorites;
+      console.log("user favoriler: " + userData.userFavorites);
+      navigation.navigate('Home');
+    })
+    .catch(error => {
+      console.log('There was an error with the login operation:', error);
+      alert('Username or Password Incorrect');
     });
   };
-
+  
   return (
     <View style={styles.container}>
       <View style={styles.container}>

@@ -1,5 +1,5 @@
 
-const CheckIngredientsApi = async (uniqueWords, flag, navigation) => {
+const CheckIngredientsApi = async (uniqueWords, flag, navigation, productId, productName) => {
   try {
     const response = await fetch(
       'https://healthjoybackendmobile20240311152807.azurewebsites.net/api/Ingredient/CalculateAverageRiskLevel',
@@ -12,12 +12,12 @@ const CheckIngredientsApi = async (uniqueWords, flag, navigation) => {
         body: JSON.stringify(uniqueWords),
       },
     );
+
     const responseData = await response.json();
-    console.log("api response data: ", responseData);
     if (!response.ok) {
       throw new Error('Veri alınamadı');
     }
-    console.log("flag:   ", flag);
+    
     if (flag) {//ingredients check screenden gelmiş demek
       if (responseData) {
         navigation.navigate('IngredientsDetails', {
@@ -26,12 +26,13 @@ const CheckIngredientsApi = async (uniqueWords, flag, navigation) => {
       } else {
         throw new Error('Geçersiz yanıt verisi');
       }
-    } else {
-      //BarcodeScannerScereenden gelmiş demek 
-      //burada object array i geliyor bunu string arraye almam lazım
+    } else {//BarcodeScannerScereenden gelmiş demek 
       if (responseData) {
         navigation.navigate('IngredientsDetails', {
           responseData: responseData,
+          productId: productId,
+          productName: productName,
+          flag: flag
         });
       } else {
         navigation.navigate('ProductNotFound');
