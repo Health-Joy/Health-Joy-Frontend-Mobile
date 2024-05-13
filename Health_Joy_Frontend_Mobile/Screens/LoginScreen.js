@@ -21,6 +21,8 @@ const LoginScreen = () => {
       userData.userId = data.response.userId;
       userData.userName = data.response.userName;
       userData.userEmail = data.response.email;
+      userData.userFavorites = data.response.favorites;
+      console.log("user favoriler: " + userData.userFavorites);
       navigation.navigate('Home');
     })
     .catch(error => {

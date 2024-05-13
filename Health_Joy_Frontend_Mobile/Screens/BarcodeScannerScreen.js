@@ -22,12 +22,15 @@ const BarcodeScannerScreen = () => {
         //result.textualData barcode değerine karşılık geliyor
         const barcode = result.textualData;
         const responseData = await CheckProduct(barcode);
+
         if(responseData.response == null){//eğer not found dönerse product bizde kayıtlı bir product değildir.
           navigation.navigate('ProductNotFound', { barcode});
         }
         else if(responseData){//responsedata döndüyse kayıtlı bir üründür.
+          const productId = responseData.response.productId;
+        const productName = responseData.response.name;
           const ingredientsArray = responseData.response.ingredients.map(item => item.name);
-          await CheckIngredientsApi(ingredientsArray, false, navigation);
+          await CheckIngredientsApi(ingredientsArray, false, navigation, productId, productName);
         }
       } catch (error) {
         console.error('Hata:', error);
