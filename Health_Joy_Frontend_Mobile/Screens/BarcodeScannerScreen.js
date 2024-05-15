@@ -48,7 +48,7 @@ const BarcodeScannerScreen = () => {
     <SafeAreaView style={styles.container}>
       <BarkoderView
         style={styles.barkoderView}
-        licenseKey="PEmBIohr9EZXgCkySoetbwP4gvOfMcGzgxKPL2X6uqM2QB4LG7locYvP2kym_PkgaJYOZrt4Q3LW0WtDzO-C65efhSjQV2fDdEiX8NL3_tFYMXrCBz2NXz1WuFhx5qi-SccGvmDYbDTR6M1MnD2ySdXvN9Oh_M5nSom7GzzMej4VGeGLXDrIHGNNYmNvnQK1qX7w_GgQgB_KhCG-rSJrsg.."
+        licenseKey="PEmBIohr9EZXgCkySoetbwP4gvOfMcGzgxKPL2X6uqOUacPedGgHghu91cK3k8gqo7gKhuJlgj-HDBKVHn0dm0v4Dv6Ruz2eXQCpaBsLFD0r_9Fk1YZAm1YGhtlnzv3Bzsii7Nuar_Ojx2o_qlSv9sSwdT91Xq0gHkWZtHrhzYcTqrA-AbYToMwQLqM_MU-3ZvhMB-C9khP5pLx9X63Ibb-yX16UKsHkMmKHdKLBgBf51z7SFF6dSy5cri2qxtKmqkMR4tHZ6w81JFxhXY18KosKsouV2ax8YnfZQiI7uw8."
         onBarkoderViewCreated={onBarkoderViewCreated}
       />
     </SafeAreaView>
