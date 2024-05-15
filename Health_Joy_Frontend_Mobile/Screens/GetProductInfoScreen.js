@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity} from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import {Picker} from "@react-native-picker/picker"; 
 import { useRoute, useNavigation } from '@react-navigation/native';
 import ImagePicker from 'react-native-image-crop-picker';
@@ -7,6 +7,7 @@ import TextRecognition from '@react-native-ml-kit/text-recognition';
 import Navbar from '../Components/Navbar';
 import CreateProductApi from '../Api/CreateProductApi';
 import userData from '../Global/GlobalVariable';
+import check_icon from '../assets/get-product-info-icons/check.png'
 
 const GetProductInfoScreen = () => {
   const route = useRoute();
@@ -17,6 +18,7 @@ const GetProductInfoScreen = () => {
   const [productType, setProductType] = useState('');
   const [description, setDescription] = useState('');
   const [ingredients, setIngredients] = useState([]);
+  const [photoSelected, setPhotoSelected] = useState(false);
 
   const handleSave = async () => {
 
@@ -77,6 +79,7 @@ const GetProductInfoScreen = () => {
       );
       const uniqueWordsSet = new Set(cleanedWordsArray);
       setIngredients(Array.from(uniqueWordsSet));
+      setPhotoSelected(true);
     } catch (error) {
       console.error('Text recognition error:', error);
     }
@@ -120,15 +123,14 @@ const GetProductInfoScreen = () => {
           <Picker.Item label="Cosmetics" value="cosmetics" />
         </Picker>
       </View>
-      {/* <Text style={styles.sectionTitle}>Ingredients</Text> */}
-      <View style={styles.inputContainer}>
-      <Text style={styles.inputLabel}>Ingredients:</Text>
-      <View>
-        {ingredients.map((ingredient, index) => (
-          <Text key={index}>{ingredient}</Text>
-        ))}
-      </View>
-      </View>
+      <View style={styles.inputIngredientsContainer}>
+  <Text style={styles.inputLabel}>Ingredients:</Text>
+  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+    {photoSelected && (
+      <Image style={styles.logo} source={require('../assets/get-product-info-icons/check.png')} />
+    )}
+  </View>
+</View>
       
       <View style={styles.buttonContainer}>
         <TouchableOpacity 
@@ -186,6 +188,14 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     fontSize: 16
   },
+  inputIngredientsContainer: {
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    justifyContent: 'flex-start' ,
+    marginBottom: 15,
+    marginRight:240,
+    marginLeft: 10,
+  },
   input: {
     width: '100%',
     height: 40,
@@ -235,6 +245,11 @@ const styles = StyleSheet.create({
     fontSize: 16, // Seçeneklerin metin boyutu
     color: '#333', // Seçeneklerin metin rengi
   },
+  logo:{
+    width: 30, 
+    height: 30,
+    marginLeft: 10
+  }
 });
 
 export default GetProductInfoScreen;

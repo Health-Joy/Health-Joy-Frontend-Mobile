@@ -16,7 +16,6 @@ const IngredientsCheckScreen = ({route}) => {
       try {
 
         const result = await TextRecognition.recognize(image.path);
-        console.log("resullllllttt"+result.text)
         const linesArray = Array.isArray(result.text) ? result.text : [result.text];
         const wordsArray = [];
         linesArray.forEach(item => {
