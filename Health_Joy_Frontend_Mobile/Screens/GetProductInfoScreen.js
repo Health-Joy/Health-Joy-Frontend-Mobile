@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity} from 'react-native';
+import {Picker} from "@react-native-picker/picker"; 
 import { useRoute, useNavigation } from '@react-navigation/native';
 import ImagePicker from 'react-native-image-crop-picker';
 import TextRecognition from '@react-native-ml-kit/text-recognition';
@@ -11,7 +12,7 @@ const GetProductInfoScreen = () => {
   const route = useRoute();
   const { barcode } = route.params;
   const navigation = useNavigation();
-  const [productName, setProductName] = useState('');
+  const [productName, setProductName] = useState(null);
   const [userId, setuserId] = useState('');
   const [productType, setProductType] = useState('');
   const [description, setDescription] = useState('');
@@ -97,15 +98,6 @@ const GetProductInfoScreen = () => {
         />
       </View>
       <View style={styles.inputContainer}>
-        <Text style={styles.inputLabel}>Product Type:</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Product Type"
-          value={productType}
-          onChangeText={setProductType}
-        />
-      </View>
-      <View style={styles.inputContainer}>
         <Text style={styles.inputLabel}>Description:</Text>
         <TextInput
           style={styles.input}
@@ -114,7 +106,30 @@ const GetProductInfoScreen = () => {
           onChangeText={setDescription}
         />
       </View>
-      <Text style={styles.sectionTitle}>Ingredients</Text>
+      <View style={styles.inputContainer}>
+        <Text style={styles.inputLabel}>Product Type:</Text>
+        <Picker
+          selectedValue={productType}
+          style={styles.picker}
+          itemStyle={styles.pickerItem} // Seçeneklerin stili
+          onValueChange={(itemValue) => setProductType(itemValue)}
+        >
+          <Picker.Item label="Select Product Type" value="" />
+          <Picker.Item label="Food" value="food" />
+          <Picker.Item label="Beverage" value="beverage" />
+          <Picker.Item label="Cosmetics" value="cosmetics" />
+        </Picker>
+      </View>
+      {/* <Text style={styles.sectionTitle}>Ingredients</Text> */}
+      <View style={styles.inputContainer}>
+      <Text style={styles.inputLabel}>Ingredients:</Text>
+      <View>
+        {ingredients.map((ingredient, index) => (
+          <Text key={index}>{ingredient}</Text>
+        ))}
+      </View>
+      </View>
+      
       <View style={styles.buttonContainer}>
         <TouchableOpacity 
           style={styles.button} 
@@ -135,11 +150,11 @@ const GetProductInfoScreen = () => {
         onPress={handleSave}>
         <Text style={styles.buttonText}>Save</Text>
       </TouchableOpacity>
-      <View>
+      {/* <View>
         {ingredients.map((ingredient, index) => (
           <Text key={index}>{ingredient}</Text>
         ))}
-      </View>
+      </View> */}
     </View>
   );
 };
@@ -153,7 +168,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   },
   label: {
-    fontSize: 16,
+    fontSize: 20,
     marginBottom: 5,
     fontWeight: 'bold',
   },
@@ -169,6 +184,7 @@ const styles = StyleSheet.create({
   },
   inputLabel: {
     marginBottom: 5,
+    fontSize: 16
   },
   input: {
     width: '100%',
@@ -177,6 +193,7 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderRadius: 5,
     paddingLeft: 10,
+    
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -204,6 +221,19 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontWeight: 'bold',
+  },
+  picker: {
+    width: '100%',
+    height: 40,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    paddingHorizontal: 10, // Sol ve sağ padding ekledik
+    marginBottom: 10, // Aşağıda biraz boşluk bıraktık
+  },
+  pickerItem: {
+    fontSize: 16, // Seçeneklerin metin boyutu
+    color: '#333', // Seçeneklerin metin rengi
   },
 });
 
