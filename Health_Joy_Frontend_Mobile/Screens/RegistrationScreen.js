@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -6,8 +6,9 @@ import {
   StyleSheet,
   TextInput,
   ScrollView,
+  Alert,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 const RegistrationScreen = () => {
   const navigation = useNavigation();
@@ -15,10 +16,55 @@ const RegistrationScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [confirmPasswordError, setConfirmPasswordError] = useState('');
+
+  useEffect(() => {
+    validateEmail(email);
+  }, [email]);
+
+  useEffect(() => {
+    validatePassword(password);
+  }, [password]);
+
+  useEffect(() => {
+    validateConfirmPassword(confirmPassword);
+  }, [confirmPassword, password]);
+
+  const validateEmail = (email) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || re.test(email)) {
+      setEmailError('');
+    } else {
+      setEmailError('Invalid email format');
+    }
+  };
+
+  const validatePassword = (password) => {
+    if (!password || password.length >= 6) {
+      setPasswordError('');
+    } else {
+      setPasswordError('Password must be at least 6 characters');
+    }
+  };
+
+  const validateConfirmPassword = (confirmPassword) => {
+    if (confirmPassword === password) {
+      setConfirmPasswordError('');
+    } else {
+      setConfirmPasswordError('Passwords do not match');
+    }
+  };
 
   const handleRegister = () => {
+    if (emailError || passwordError || confirmPasswordError) {
+      Alert.alert('Error', 'Please fix the errors before registering');
+      return;
+    }
+
     fetch(
-      'https://healthjoybackendmobile20240515195922.azurewebsites.net/api/User',
+      'https://healthjoybackendmobile20240311152807.azurewebsites.net/api/User',
       {
         method: 'POST',
         headers: {
@@ -42,12 +88,12 @@ const RegistrationScreen = () => {
       })
       .then(data => {
         console.log('Registration successful');
-        alert('Registration successful');
+        Alert.alert('Success', 'Registration successful');
         navigation.navigate('Login');
       })
       .catch(error => {
         console.error('There was a problem with the registration:', error);
-        alert(error);
+        Alert.alert('Error', error.message);
       });
   };
 
@@ -76,6 +122,7 @@ const RegistrationScreen = () => {
               value={email}
               onChangeText={text => setEmail(text)}
             />
+            {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
           </View>
           <View style={styles.inputContainer}>
             <TextInput
@@ -86,6 +133,7 @@ const RegistrationScreen = () => {
               value={password}
               onChangeText={text => setPassword(text)}
             />
+            {passwordError ? <Text style={styles.errorText}>{passwordError}</Text> : null}
           </View>
           <View style={styles.inputContainer}>
             <TextInput
@@ -96,6 +144,7 @@ const RegistrationScreen = () => {
               value={confirmPassword}
               onChangeText={text => setConfirmPassword(text)}
             />
+            {confirmPasswordError ? <Text style={styles.errorText}>{confirmPasswordError}</Text> : null}
           </View>
           <TouchableOpacity
             style={styles.button}
@@ -163,6 +212,11 @@ const styles = StyleSheet.create({
     marginBottom: 75,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  errorText: {
+    color: 'red',
+    marginTop: 5,
+    textAlign: 'center',
   },
 });
 
