@@ -31,7 +31,9 @@ const UserProfileScreen = () => {
             style={styles.userIcon}
             source={require('../assets/user-page-icons/username-icon.png')}
           />
-          <Text style={styles.text}>{userData.userName}</Text>
+          <Text style={styles.text} numberOfLines={1} ellipsizeMode="tail">
+            {userData.userName}
+          </Text>
         </View>
 
         <View style={styles.textContent}>
@@ -39,7 +41,9 @@ const UserProfileScreen = () => {
             style={styles.emailIcon}
             source={require('../assets/user-page-icons/email-icon.png')}
           />
-          <Text style={styles.text}>{userData.userEmail}</Text>
+          <Text style={styles.text} numberOfLines={1} ellipsizeMode="tail">
+            {userData.userEmail}
+          </Text>
         </View>
 
         <TouchableOpacity
@@ -87,46 +91,49 @@ const styles = StyleSheet.create({
   buttonContent: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
   },
   textContent: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
     width: 275,
     height: 55,
     backgroundColor: '#D4FAE8',
     marginTop: 30,
     borderRadius: 100,
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   textPassword: {
     fontSize: 16,
     fontStyle: 'italic',
     marginHorizontal: 56,
   },
-  textUser: {
-    fontSize: 16,
-    fontStyle: 'italic',
-    marginHorizontal: 50,
-  },
   userIcon: {
     width: 30,
     height: 30,
-    marginRight: 5,
+    marginRight: 10,
   },
   passwordIcon: {
     width: 30,
     height: 30,
-    marginRight: 5,
+    marginRight: 25,
   },
   text: {
     fontSize: 16,
     fontStyle: 'italic',
-    marginHorizontal: 85,
+    flex: 1,
+    textAlign: 'center',
   },
   emailIcon: {
     width: 27,
     height: 30,
+    marginRight: 10,
+    //marginLeft: 8,
+  },
+  arrowIcon: {
+    width: 20,
+    height: 20,
   },
 });
 
