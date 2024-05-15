@@ -14,12 +14,16 @@ const UserFavoriteScreen = () => {
       try {
         const response = await GetAllFavoriteApi(userData.userId);
         if (response.success) {
-          setFavoriteProducts(response.response);
+          if (response.response) {
+            setFavoriteProducts(response.response);
+          } else {
+            console.log('Kullanıcının favori ürünü bulunmamaktadır.');
+          }
         } else {
-          console.error('Failed to fetch favorite products:', response.message);
+          alert("There is no favorite product.")
         }
       } catch (error) {
-        console.error('Error fetching favorite products:', error);
+        console.error('Favori ürünler getirilirken bir hata oluştu:', error);
       }
     }
     fetchFavoriteProducts();
