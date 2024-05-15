@@ -19,7 +19,7 @@ const ChangePasswordScreen = () => {
   const handleChangePassword = async () => {
     try {
       const userID = userData.userId;
-      const response = await fetch(`https://healthjoybackendmobile20240311152807.azurewebsites.net/api/User/${userID}`, {
+      const response = await fetch(`https://healthjoybackendmobile20240515195922.azurewebsites.net/api/User/${userID}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

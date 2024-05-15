@@ -1,7 +1,7 @@
 
 const CreateProductApi = async (barcode, productName, productType, description, userId, ingredients) => {
     try {
-      const response = await fetch('https://healthjoybackendmobile20240311152807.azurewebsites.net/api/Product/Create', {
+      const response = await fetch('https://healthjoybackendmobile20240515195922.azurewebsites.net/api/Product/Create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

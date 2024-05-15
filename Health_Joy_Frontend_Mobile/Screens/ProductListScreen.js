@@ -12,7 +12,7 @@ const ProductListScreen = ({route}) => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          'https://healthjoybackendmobile20240311152807.azurewebsites.net/api/Product/GetAllProducts',
+          'https://healthjoybackendmobile20240515195922.azurewebsites.net/api/Product/GetAllProducts',
         );
         const result = await response.json();
         if (result.success) {

@@ -1,6 +1,6 @@
 const AddFavoriteApi = async (productId, userId) => {
     try {
-      const response = await fetch('https://healthjoybackendmobile20240311152807.azurewebsites.net/api/Favorite/Add', {
+      const response = await fetch('https://healthjoybackendmobile20240515195922.azurewebsites.net/api/Favorite/Add', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

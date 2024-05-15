@@ -18,7 +18,7 @@ const RegistrationScreen = () => {
 
   const handleRegister = () => {
     fetch(
-      'https://healthjoybackendmobile20240311152807.azurewebsites.net/api/User',
+      'https://healthjoybackendmobile20240515195922.azurewebsites.net/api/User',
       {
         method: 'POST',
         headers: {

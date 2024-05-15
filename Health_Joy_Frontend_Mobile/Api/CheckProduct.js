@@ -2,7 +2,7 @@
 const CheckProduct = async (barkod) => {
 
   try {
-    const response = await fetch(`https://healthjoybackendmobile20240311152807.azurewebsites.net/api/Product?productBarcode=${barkod}`, {
+    const response = await fetch(`https://healthjoybackendmobile20240515195922.azurewebsites.net/api/Product?productBarcode=${barkod}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

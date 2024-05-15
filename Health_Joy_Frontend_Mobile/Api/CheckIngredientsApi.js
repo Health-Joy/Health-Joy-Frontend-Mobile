@@ -2,7 +2,7 @@
 const CheckIngredientsApi = async (uniqueWords, flag, navigation, productId, productName) => {
   try {
     const response = await fetch(
-      'https://healthjoybackendmobile20240311152807.azurewebsites.net/api/Ingredient/CalculateAverageRiskLevel',
+      'https://healthjoybackendmobile20240515195922.azurewebsites.net/api/Ingredient/CalculateAverageRiskLevel',
       {
         method: 'POST',
         headers: {

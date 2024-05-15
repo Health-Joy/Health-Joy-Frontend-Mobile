@@ -1,6 +1,6 @@
 
 const LoginApi = (email, password) => {
-    return fetch(`https://healthjoybackendmobile20240311152807.azurewebsites.net/api/User/Login?email=${email}&password=${password}`, {
+    return fetch(`https://healthjoybackendmobile20240515195922.azurewebsites.net/api/User/Login?email=${email}&password=${password}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
