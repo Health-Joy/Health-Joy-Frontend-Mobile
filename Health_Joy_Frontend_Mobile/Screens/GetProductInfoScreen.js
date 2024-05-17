@@ -114,7 +114,7 @@ const GetProductInfoScreen = () => {
         <Picker
           selectedValue={productType}
           style={styles.picker}
-          itemStyle={styles.pickerItem} // Seçeneklerin stili
+          itemStyle={styles.pickerItem}
           onValueChange={(itemValue) => setProductType(itemValue)}
         >
           <Picker.Item label="Select Product Type" value="" />
@@ -238,12 +238,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 5,
-    paddingHorizontal: 10, // Sol ve sağ padding ekledik
-    marginBottom: 10, // Aşağıda biraz boşluk bıraktık
+    paddingHorizontal: 10, 
+    marginBottom: 10, 
   },
   pickerItem: {
-    fontSize: 16, // Seçeneklerin metin boyutu
-    color: '#333', // Seçeneklerin metin rengi
+    fontSize: 16, 
+    color: '#333', 
   },
   logo:{
     width: 30, 

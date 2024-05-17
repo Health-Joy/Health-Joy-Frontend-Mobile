@@ -24,9 +24,6 @@ const ProductNotFoundScreen = () => {
         <Navbar />
         <Text style={styles.startText}>Oops!</Text>
         <Text style={styles.text}>We couldn't find your item</Text>
-        {/* <TouchableOpacity style={styles.button} activeOpacity={0.8} >
-            <Text style={styles.buttonText}>Add Product</Text>
-          </TouchableOpacity> */}
         <TouchableOpacity 
             style={styles.button} 
             activeOpacity={0.8} 

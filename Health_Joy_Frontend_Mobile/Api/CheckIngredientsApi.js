@@ -32,7 +32,7 @@ const CheckIngredientsApi = async (uniqueWords, flag, navigation, productId, pro
           responseData: responseData,
           productId: productId,
           productName: productName,
-          flag: flag
+          flag: flag//bu flag kullanıcının favorilerinde olan bir ürün olabileceği için default değer olarak gönderiliyor
         });
       } else {
         navigation.navigate('ProductNotFound');

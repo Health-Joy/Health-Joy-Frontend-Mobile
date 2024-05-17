@@ -30,6 +30,7 @@ const UserFavoriteScreen = () => {
   }, []);
 
   const handleProductPress = item => {
+
     const ingredients = item.ingredients.map(ingredient => ({
       name: ingredient.name,
       riskLevel: ingredient.riskLevel,
@@ -44,9 +45,11 @@ const UserFavoriteScreen = () => {
     };
 
     navigation.navigate('IngredientsDetails', {
-      responseData,
-      flag: false,
+      responseData: responseData,
+      productId: item.productId,
       productName: item.name,
+      flag: false//bu flag kullanıcının favorilerinde olan bir ürün olabileceği için default değer olarak gönderiliyor
+      //kalp ikonun ekrana bastırılabilmesi için default: false
     });
   };
 

@@ -10,7 +10,7 @@ const GetAllFavoriteApi = async (userId) => {
         }),
       });
       const data = await response.json(); 
-      console.log(data);
+      console.log("ceren: " + data);
       if (response.ok) {
         return data; 
       } else {
@@ -20,6 +20,7 @@ const GetAllFavoriteApi = async (userId) => {
       console.error('Error creating product:', error);
       return false;
     }
+    
   };
   
   export default GetAllFavoriteApi;

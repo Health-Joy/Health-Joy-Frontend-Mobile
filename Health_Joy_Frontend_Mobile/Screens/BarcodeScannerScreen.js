@@ -28,13 +28,12 @@ const BarcodeScannerScreen = () => {
         }
         else if(responseData){//responsedata döndüyse kayıtlı bir üründür.
           const productId = responseData.response.productId;
-        const productName = responseData.response.name;
+          const productName = responseData.response.name;
           const ingredientsArray = responseData.response.ingredients.map(item => item.name);
           await CheckIngredientsApi(ingredientsArray, false, navigation, productId, productName);
         }
       } catch (error) {
         console.error('Hata:', error);
-        //alert('Hata: Veri alınamadı');
       }
     });
     }

@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import Navbar from '../Components/Navbar';
 import {useNavigation} from '@react-navigation/native';
+import userData from '../Global/GlobalVariable';
 
 const SearchScreen = () => {
   const navigation = useNavigation();
@@ -64,10 +65,12 @@ const SearchScreen = () => {
       ing: ingredients,
     };
 
+    console.log(userData.userFavorites);
     navigation.navigate('IngredientsDetails', {
       responseData,
-      flag: false,
+      productId: item.productId,
       productName: item.name,
+      flag: false,
     });
   };
 

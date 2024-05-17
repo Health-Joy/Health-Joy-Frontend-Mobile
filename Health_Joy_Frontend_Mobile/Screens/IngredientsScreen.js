@@ -4,7 +4,7 @@ import Navbar from '../Components/Navbar';
 import userData from '../Global/GlobalVariable';
 import AddFavoriteApi from '../Api/Favorite/AddFavoriteApi';
 import RemoveFavoriteApi from '../Api/Favorite/RemoveFavoriteApi';
-
+//IngredientsDetail screen
 const IngredientsScreen = ({ route }) => {
   const { responseData, productId, productName, flag} = route.params;
   const [showModal, setShowModal] = useState(false);
@@ -18,7 +18,7 @@ const IngredientsScreen = ({ route }) => {
   };
 
   const userFavoriteProductCheck = () => {
-    if(userData.userFavorites.includes(productId))  {
+    if(userData.userFavorites.includes(productId))  {//eğer bu kullanıcının favori ürünüyse
       setHeartIconSource(require('../assets/favorite-icons/heart.png')); // Dolu kalp ikonunu kullan
       setIsFavorite(true);
     } else {
@@ -29,10 +29,10 @@ const IngredientsScreen = ({ route }) => {
 
   useEffect(() => {
     userFavoriteProductCheck();
+    console.log(flag);
   }, []);
 
   const handleFavoriteButton = () => {
-    console.log("user favori: " + userData.userFavorites);
     
     if (!isFavorite) {
       userData.userFavorites.push(productId); // Ekleme işlemi
@@ -70,6 +70,7 @@ const IngredientsScreen = ({ route }) => {
       return 'Poor';
     }
   };
+
 
   const averageRiskLabel = `${responseData.averageRiskLevel}/10`;
   const averageRiskColor = getRiskColor(responseData.averageRiskLevel);
@@ -241,7 +242,7 @@ const styles = StyleSheet.create({
   heartButton: {
     position: 'absolute',
     top: -100,
-    right: 24, // İkonunuzun konumunu ve hizalamasını buradan ayarlayabilirsiniz
+    right: 24, 
   },
   heartIcon: {
     width: 40,
